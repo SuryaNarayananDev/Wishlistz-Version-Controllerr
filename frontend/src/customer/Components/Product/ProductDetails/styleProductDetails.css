@@ -1,0 +1,28 @@
+#hoverGreenbtn:hover{
+    background-color: #e0bc09;
+    color: black;
+}
+#hoverGreenbtn{
+    background-color: #da6e10;
+}
+
+#hoverDpinkbtn:hover{
+    background-color: #FF78AE;
+    
+
+}
+#DisProductPriceingFont{
+    font-size: 30px;
+    font-weight: bold;
+}
+#ProductPriceingFont{
+    font-size: 22px;
+    
+}
+.Pop-Show{
+    /* position: absolute;
+    background-color: rgba(20, 81, 135, 0.252);
+    width: 1800px;
+    height: 1500px;
+    z-index: 1; */
+}

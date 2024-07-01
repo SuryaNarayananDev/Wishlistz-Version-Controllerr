@@ -1,0 +1,12 @@
+#img-popuptoc:hover{
+    transform: scale(1.5);
+    transition-duration: 0.5s;
+}
+#getSpaceFromLeft{
+    margin-left: 10px;
+}
+Select{
+
+    user-select: none;
+ 
+}

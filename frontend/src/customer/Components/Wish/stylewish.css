@@ -1,0 +1,18 @@
+.centerAlignItem{
+    display: flex;
+    justify-content: center;
+
+}
+.size20pxofText{
+    font-size: 80px;
+}
+#isAbsalute{
+    position: absolute;
+}
+#wishheartbtn{
+    font-size: 30px;
+}
+#isHover:hover{
+    cursor: pointer;
+    background-color: rgba(106, 106, 103, 0.329);
+}
