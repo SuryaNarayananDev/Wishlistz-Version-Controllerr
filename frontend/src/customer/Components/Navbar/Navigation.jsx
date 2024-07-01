@@ -54,6 +54,7 @@ export default function Navigation() {
   };
 
   const handleProfileMenu = () => {
+    handleCloseUserMenu();
     navigate("/profile")
   }
 
