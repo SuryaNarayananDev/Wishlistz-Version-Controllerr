@@ -294,7 +294,7 @@ export default function ProductDetails() {
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   </div>
                 {/* Select size Function */}
-                  
+                {customersProduct.product?.sizes[3].quantity>9? 
                 <FormControl>
                   <RadioGroup
                     row
@@ -316,25 +316,45 @@ export default function ProductDetails() {
                   />
                   </RadioGroup>
                 </FormControl>
+                :
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    value={selectedSize}
+                    onChange={handleAddSize}
+                    is
+                  >
+                  <FormControlLabel
+                    value="Free Size"
+                    control={<Radio />}
+                    label="Free Size"
+                  />
+                  </RadioGroup>
+                </FormControl>
+}
                 {indicate===true?<p className='indicateDanger'>Please Select Size *</p>:""} 
                 </div>
+
                 
 
                {/* Main Function button AddToCart And Wish */}
-               
+              
                 <div className="flex space-x-3 ">
-                {isStock>0?
-                <Button
-                  id="hoverOrangebtn"
-                  variant="contained"
-                  type="button"
-                  onClick={handleAddtoCart}
-                  
-                  sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
-                >
-                  ADD to Cart
+                  {isStock>0?
+                    <Button
+                      id="hoverOrangebtn"
+                      variant="contained"
+                      type="button"
+                      onClick={handleAddtoCart}
+                      
+                      sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                    >
+                      ADD to Cart
                   <AddcartIcon/>
-                </Button> :
+                </Button> 
+                :
                 <Button disabled
                 variant="contained"
                 sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}

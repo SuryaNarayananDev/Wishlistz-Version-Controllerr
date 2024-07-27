@@ -20,6 +20,8 @@ const initialSizes = [
   { name: "S", quantity: 0 },
   { name: "M", quantity: 0 },
   { name: "L", quantity: 0 },
+  { name: "XL", quantity: 0 },
+  { name: "Free Size", quantity: 0 }
 ];
 const imageSets=[
   {name: "img1",src:null},
@@ -345,15 +347,6 @@ const jwt=localStorage.getItem("jwt")
             >
               Add New Product
             </Button>
-            {/* <Button
-              variant="contained"
-              sx={{ p: 1.8 }}
-              className="py-20 ml-10"
-              size="large"
-              onClick={()=>handleAddProducts(dressPage1)}
-            >
-              Add Products By Loop
-            </Button> */}
           </Grid>
         </Grid>
       </form>
