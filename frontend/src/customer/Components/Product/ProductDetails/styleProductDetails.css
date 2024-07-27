@@ -1,11 +1,18 @@
-#hoverGreenbtn:hover{
+#hoverOrangebtn:hover{
     background-color: #e0bc09;
     color: black;
 }
-#hoverGreenbtn{
+#hoverOrangebtn{
     background-color: #da6e10;
 }
-
+#hoverGreenbtn{
+    background-color: #25b525;
+    color: #fff;
+    
+}
+#hoverGreenbtn:hover{
+    background-color: #4ddb4d;
+}
 #hoverDpinkbtn:hover{
     background-color: #FF78AE;
     
@@ -19,10 +26,43 @@
     font-size: 22px;
     
 }
-.Pop-Show{
-    /* position: absolute;
-    background-color: rgba(20, 81, 135, 0.252);
-    width: 1800px;
-    height: 1500px;
-    z-index: 1; */
+.indicateDanger{
+    padding-top: 10px;
+    font-size: 20px;
+    color: red;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.whatsapp-container{
+    z-index: 1;
+    padding:10px ;
+    margin: auto;
+    width: 350px;
+    height: 300px;
+    background-color: #fff;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+.wa-font-15px{
+    font-size: 22px;
+}
+.wa-btn{
+    color: black;
+    margin: 5px;
+    background-color: yellow;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    align-items: center;
+}
+.wa-btn:hover{
+    background-color: orange;
+}
+.algin-center-btn{
+    margin-left: 22%;
+    margin-top: 20px;
+}
+.algin-text-center{
+    align-content: center;
+    text-align: center;
 }

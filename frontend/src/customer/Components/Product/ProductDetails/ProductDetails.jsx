@@ -1,9 +1,9 @@
+import * as React from 'react';
 import { useState } from "react";
 import "./styleProductDetails.css"
-import { RadioGroup } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductReviewCard from "./ProductReviewCard";
-import { Box, Button, Grid, LinearProgress, Radio, Rating } from "@mui/material";
+import { Box, Button, Grid, LinearProgress, Rating } from "@mui/material";
 import HomeProductCard from "../../Home/HomeProductCard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,13 @@ import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
 import Wishheart from "../ProductCard/wishheart";
 import AddcartIcon from "../ProductCard/carticon";
 import menShirt from "../../../../Data/Men/men_shirt.json"
-
+import AddWhatsappIcon from "./whatsappIcon";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 
 const Wish = () => {
@@ -74,9 +80,12 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  const [selectedSize, setSelectedSize] = useState();
+  const [selectedSize, setSelectedSize] = useState("");
   const [activeImage, setActiveImage] = useState(null);
-  const [popupToken,setpopupToken]=useState(false)
+  const [sizeClick,setsizeClick]=useState(false)
+  const [indicate,setindicate]=useState(false)
+  const [WhatsappBtn,setWhatsappbtn]=useState(false)
+  const [createWhatsappLink,setWhatsappLink]=useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { customersProduct,review } = useSelector((store) => store);
@@ -84,29 +93,40 @@ export default function ProductDetails() {
   const jwt = localStorage.getItem("jwt");
   console.log("snfl" , customersProduct.product?.category.name);
 
-  // console.log("param",productId,customersProduct.product)
-
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
     console.log(image+"image in row==");
   };
 
+  const handleWhatsapp = () => {
+    setWhatsappbtn(!WhatsappBtn)
+  };
  
-
- 
+  const handleAddSize=(event)=>{
+    setSelectedSize(event.target.value)
+    setsizeClick(true)
+  }
   
   const handleAddtoCart = () => {
-    
-    const data = { productId, size: selectedSize.name};
+    if (sizeClick===true) {
+      const data = { productId, size:selectedSize};
     dispatch(addItemToCart({ data, jwt }));
     navigate("/cart"); 
+    }else{
+      setindicate(true)
+    }
+    
   };
 
   const handleAddtoWish = () => {
+    if (sizeClick===true) {
     const data = { productId, size: selectedSize.name };
     dispatch(addItemToWish({ data, jwt }));
-    
+    }else
+    {
+      setindicate(true)
+    }
   };
 
   const[Suggest,setSuggest]=useState("")
@@ -115,7 +135,7 @@ export default function ProductDetails() {
     const data = { productId: productId, jwt };
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
-    setSuggest(customersProduct.product?.category.name)
+    setWhatsappLink(`http://localhost:3000/product/${productId}`)
   }, [productId]);
 
   // console.log(subImageOfProduct+"images of product");
@@ -190,6 +210,38 @@ export default function ProductDetails() {
                   </div>
               ))}  
             </div>
+          <div>
+            <Button
+                  id="hoverGreenbtn"
+                  variant="contained"
+                  type="button"
+                  onClick={handleWhatsapp}
+                  
+                  sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                >
+                  Whatsapp
+                  <AddWhatsappIcon/>
+                </Button>
+                {/* Create Whatsapp HyperLinks */}
+            {WhatsappBtn===true?
+                  <div>
+                    <div className="whatsapp-container">
+                      <p className="algin-text-center">For More Details</p>
+                      <div className='space-y-3'>
+                      <p className='wa-font-15px'>Product: {productId}</p>
+                        <CopyToClipboard text={createWhatsappLink}>
+                          <button className='wa-btn'>Copy</button>
+                        </CopyToClipboard>
+                      <p>Click Copy button and click below button</p>
+                            <hr/>
+                    </div>
+                    <div  className='algin-center-btn'>
+                      <Button id="hoverGreenbtn" href="https://wa.me/9446976017">Whatsapp Chat<AddWhatsappIcon/></Button>
+                    </div>
+                    </div>
+                </div>:""}
+
+            </div>
           </div>
           {/* Product info */}
           <div className="lg:col-span-1 mx-auto max-w-2xl px-4 pb-16 sm:px-6  lg:max-w-7xl  lg:px-8 lg:pb-24">
@@ -241,87 +293,39 @@ export default function ProductDetails() {
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   </div>
-
+                {/* Select size Function */}
+                  
+                <FormControl>
                   <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
                     value={selectedSize}
-                    onChange={setSelectedSize}
-                    className="mt-4"
-                   
+                    onChange={handleAddSize}
+                    is
                   >
-                    <RadioGroup.Label className="sr-only">
-                      Choose a size
-                    </RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-10">
-                      {product.sizes.map((size) => (
-                        <RadioGroup.Option
-                          key={size.name}
-                          value={size}
-                          isRequired={selectedSize}
-                          disabled={!size.inStock}
-                          className={({ active }) =>
-                            classNames(
-                              size.inStock
-                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                                : "cursor-not-allowed bg-gray-50 text-gray-200",
-                              active ? "ring-1 ring-indigo-500" : "",
-                              "group relative flex items-center justify-center rounded-md border py-1 px-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
-                            )
-                          }
-                        >
-                          {({ active, checked }) => (
-                            <>
-                              <RadioGroup.Label  as="span">
-                                {size.name}
-                              </RadioGroup.Label>
-                              {size.inStock ? (
-                                <span
-                                  className={classNames(
-                                    active ? "border" : "border-2",
-                                    checked
-                                      ? "border-indigo-500"
-                                      : "border-transparent",
-                                    "pointer-events-none absolute -inset-px rounded-md"
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                >
-                                  <svg
-                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    stroke="currentColor"
-                                  >
-                                    <line
-                                      x1={0}
-                                      y1={100}
-                                      x2={100}
-                                      y2={0}
-                                      vectorEffect="non-scaling-stroke"
-                                    />
-                                  </svg>
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </RadioGroup.Option>
-                      ))}
-                    </div>
-                      
-
+                  <FormControlLabel value="S" control={<Radio />} label="S" />
+                  <FormControlLabel value="M" control={<Radio />} label="M" />
+                  <FormControlLabel value="L" control={<Radio />} label="L" />
+                  <FormControlLabel value="XL" control={<Radio />} label="XL" />
+                  <FormControlLabel
+                    value="Free Size"
+                    disabled
+                    control={<Radio />}
+                    label="Free Size"
+                  />
                   </RadioGroup>
+                </FormControl>
+                {indicate===true?<p className='indicateDanger'>Please Select Size *</p>:""} 
                 </div>
                 
-     
-                  {/*  /////////////////*/}
+
+               {/* Main Function button AddToCart And Wish */}
                
                 <div className="flex space-x-3 ">
                 {isStock>0?
                 <Button
-                  id="hoverGreenbtn"
+                  id="hoverOrangebtn"
                   variant="contained"
                   type="button"
                   onClick={handleAddtoCart}
