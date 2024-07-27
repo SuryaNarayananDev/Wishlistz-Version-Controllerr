@@ -33,7 +33,7 @@ async function updateCartItem(userId, cartItemId, cartItemData) {
     item.quantity = cartItemData.quantity;
     item.price = item.quantity * item.product.price;
     item.discountedPrice = item.quantity * item.product.discountedPrice;
-
+    ;
     const updatedCartItem = await item.save();
     return updatedCartItem;
   } else {

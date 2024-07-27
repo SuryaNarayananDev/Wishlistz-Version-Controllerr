@@ -27,13 +27,7 @@ const imageSets=[
   {name: "img3",src:null},
   {name: "img4",src:null},
 ]
-const initialcolortags=[
-  {name: "color1",color:null},
-  {name: "color2",color:null},
-  {name: "color3",color:null},
-  {name: "color4",color:null},
-  {name: "color5",color:null},
-]
+
 
 const CreateProductForm = () => {
   
@@ -43,7 +37,6 @@ const CreateProductForm = () => {
     brand: "",
     title: "",
     color: "",
-    colortag: initialcolortags,
     discountedPrice: "",
     price: "",
     discountPersent: "",
@@ -91,17 +84,7 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
-  const handleColorChange = (e, index) => {
-    let { name, value } = e.target;
-    name==="color_code"?name="color":name=e.target.name;
-
-    const colorcode = [...productData.colortag];
-    colorcode[index][name] = value;
-    setProductData((prevState) => ({
-      ...prevState,
-      colortag: colorcode,
-    }));
-  };
+  
 
   const handleAddSize = () => {
     const sizes = [...productData.size];
@@ -344,31 +327,6 @@ const jwt=localStorage.getItem("jwt")
                   name="size_quantity"
                   type="number"
                   onChange={(event) => handleSizeChange(event, index)}
-                  required
-                  fullWidth
-                />
-              </Grid> </Grid>
-            
-          ))}
-
-             {productData.colortag.map((colortag, index) => (
-            <Grid container item spacing={3} >
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Size Name"
-                  name="name"
-                  value={colortag.name}
-                  onChange={(event) => handleColorChange(event, index)}
-                  required
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Quantity"
-                  name="color_code"
-                  type=""
-                  onChange={(event) => handleColorChange(event, index)}
                   required
                   fullWidth
                 />

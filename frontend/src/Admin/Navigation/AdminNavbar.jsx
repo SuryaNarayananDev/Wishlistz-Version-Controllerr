@@ -168,7 +168,7 @@ export default function AdminNavbar({handleSideBarViewInMobile}) {
       </MenuItem>
     </Menu>
   );
-// https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + isLargeScreen, backgroundColor: 'rgb(0, 0, 22)' }}>
@@ -183,7 +183,7 @@ export default function AdminNavbar({handleSideBarViewInMobile}) {
           >
             <MenuIcon />
           </IconButton>}
-          <Avatar alt="Zosh" src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png" />
+          <Avatar alt="WishList" src="favicon.ico" />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

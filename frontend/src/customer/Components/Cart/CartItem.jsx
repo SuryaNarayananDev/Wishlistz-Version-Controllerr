@@ -7,9 +7,10 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import{ useNavigate} from "react-router-dom";
 
-const CartItem = ({ item,showButton,proId  }) => {
-  const navigate= useNavigate();
+const CartItem = ({ item,showButton}) => {
   const dispatch = useDispatch();
+  const navigate= useNavigate();
+
   const jwt = localStorage.getItem("jwt");
 
   const handleRemoveItemFromCart = () => {
@@ -22,13 +23,10 @@ const CartItem = ({ item,showButton,proId  }) => {
     dispatch(updateCartItem(data))
   }
 
-  const handleNavigate=()=>{
-    navigate(`/product/${proId}`)
-  }
 
   return (
-    <div id="isHover" className="p-5 shadow-lg border rounded-md">
-      <div  onClick={handleNavigate} className="flex items-center">
+    <div className="p-5 shadow-lg border rounded-md">
+      <div className="flex items-center">
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <img
             className="w-full h-full object-cover object-top"

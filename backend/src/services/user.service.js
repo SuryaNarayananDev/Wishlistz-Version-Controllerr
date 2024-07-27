@@ -30,28 +30,15 @@ const createUser = async (userData)=>{
 
 }
 
-// const findUserWishlist=async(userId)=>{
-//     try {
-//         console.log();
-//     }catch{
-//         console.log();
-//     }
-// }
-
-// const addWishlistToUser=async(userId,productId)=>{
-//     const UserWish = await User.findOne({ user: userId });
-//     const isPresent = await UserWish.findOne({ product: productId });
-    
-  
-//     if (!isPresent) {
-//         const newWish = {src: productId}
-        
-//     }
-
-//     const createdwish = await newWish.save();
-//     UserWish.wishlist.push(createdwish);
-//     await UserWish.save();
-// }
+const updateUserPassword=async(userId)=>{
+    try{
+        const user = await User.findById(userId);
+    }
+    catch
+    {
+        console.log("pending user up");
+    }
+}
 
 const findUserById=async(userId)=>{
     try {

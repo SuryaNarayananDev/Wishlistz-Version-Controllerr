@@ -20,20 +20,19 @@ async function createOrder(user, shippAddress) {
   const cart = await cartService.findUserCart(user._id);
   const orderItems = [];
 
-  // for (const item of cart.cartItems) {
-  //   const orderItem = new OrderItem({
-  //     price: item.price,
-  //     product: item.product,
-  //     quantity: item.quantity,
-  //     size: item.size,
-  //     color:item.color,
-  //     userId: item.userId,
-  //     discountedPrice: item.discountedPrice,
-  //   });
+  for (const item of cart.cartItems) {
+    const orderItem = new OrderItem({
+      price: item.price,
+      product: item.product,
+      quantity: item.quantity,
+      size: item.size,
+      userId: item.userId,
+      discountedPrice: item.discountedPrice,
+    });
 
-  //   const createdOrderItem = await orderItem.save();
-  //   orderItems.push(createdOrderItem);
-  // }
+    const createdOrderItem = await orderItem.save();
+    orderItems.push(createdOrderItem);
+  }
 
   const createdOrder = new Order({
     user,
@@ -119,7 +118,7 @@ async function usersOrderHistory(userId) {
   }
 }
 
-async function getAllOrders(userId) {
+async function getAllOrders() {
   return await Order.find().populate({
     path: "orderItems",
     populate: {

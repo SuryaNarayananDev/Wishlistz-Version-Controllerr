@@ -10,8 +10,8 @@ const OrderCard = ({ item, order }) => {
   console.log("items ", item);
   return (
     <Box className="p-5 shadow-lg hover:shadow-2xl border ">
-      <Grid spacing={2} container sx={{ justifyContent: "space-between" }}>
-        <Grid item xs={6}>
+      <Grid spacing={1} container sx={{ justifyContent: "space-between" }}>
+        <Grid item xs={12} lg={6}>
           <div
             onClick={() => navigate(`/account/order/${order?._id}`)}
             className="flex cursor-pointer"
@@ -29,9 +29,9 @@ const OrderCard = ({ item, order }) => {
             </div>
           </div>
         </Grid>
-
+{/* check order push */}
         <Grid item xs={2}>
-          <p>₹{item?.price}</p>
+          <p >₹{item?.discountedPrice}</p>
         </Grid>
         <Grid item xs={5}>
           <p className="space-y-2 font-semibold">
@@ -50,7 +50,7 @@ const OrderCard = ({ item, order }) => {
                 sx={{ width: "15px", height: "15px" }}
                 className="text-green-600 p-0 mr-2 text-sm"
               />
-              <span>Expected Delivery On Minminum 4-7 Days from Ordered</span>
+              <span>Expected Delivery On Minminum 4-7 Days from Ordered date</span>
               </>}
             
           </p>

@@ -11,11 +11,9 @@ import { findProductById } from "../../../../Redux/Customers/Product/Action";
 import { addItemToCart } from "../../../../Redux/Customers/Cart/Action";
 import { addItemToWish} from "../../../../Redux/Customers/Wish/Action"
 import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
-import { gounsPage1 } from "../../../../Data/Gouns/gouns";
 import Wishheart from "../ProductCard/wishheart";
 import AddcartIcon from "../ProductCard/carticon";
-import PopupBtn from "./PopupBtn";
-
+import menShirt from "../../../../Data/Men/men_shirt.json"
 
 
 
@@ -84,7 +82,7 @@ export default function ProductDetails() {
   const { customersProduct,review } = useSelector((store) => store);
   const { productId } = useParams();
   const jwt = localStorage.getItem("jwt");
-  
+  console.log("snfl" , customersProduct.product?.category.name);
 
   // console.log("param",productId,customersProduct.product)
 
@@ -111,11 +109,13 @@ export default function ProductDetails() {
     
   };
 
+  const[Suggest,setSuggest]=useState("")
 
   useEffect(() => {
     const data = { productId: productId, jwt };
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
+    setSuggest(customersProduct.product?.category.name)
   }, [productId]);
 
   // console.log(subImageOfProduct+"images of product");
@@ -124,7 +124,6 @@ export default function ProductDetails() {
   return (
   
     <div className="bg-white lg:px-20">
-      <PopupBtn></PopupBtn>
       <div className="Pop-Show">
 
       </div>
@@ -554,12 +553,13 @@ export default function ProductDetails() {
           </div>
         </section>
 
+
         {/* similer product */}
         <section className=" pt-10">
           <h1 className="py-5 text-xl font-bold">Similer Products</h1>
           <Grid id="card"  >
           <div xs={12}  className="flex flex-wrap space-y-5 " style={{display:"flex",justifyContent:"center"}}>
-            {gounsPage1.map((item) => (
+            {menShirt.map((item) => (
               <HomeProductCard product={item} />
             ))}
           </div>

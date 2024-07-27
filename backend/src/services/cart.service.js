@@ -56,7 +56,7 @@ async function addCartItem(userId, req) {
       cart: cart._id,
       quantity: 1,
       userId,
-      price: product.discountedPrice,
+      price: product.price,
       size: req.size,
       discountedPrice:product.discountedPrice
     });

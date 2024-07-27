@@ -26,8 +26,8 @@ const Order = () => {
   return (
     <Box className="px-10">
       <Grid container spacing={0} sx={{ justifyContent: "center" }}>
-        <Grid item xs={9}>
-          <Box className="space-y-5 ">
+        <Grid item xs={12} lg={9}>
+          <Box className="space-y-7 ">
             {order.orders?.length>0 && order.orders?.map((order )=> {
               return order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
             })}

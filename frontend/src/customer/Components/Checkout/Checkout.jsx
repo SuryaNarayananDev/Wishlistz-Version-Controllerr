@@ -9,7 +9,6 @@ import AddDeliveryAddressForm from "./AddAddress";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderSummary from "./OrderSummary";
 
-
 const steps = [
   "Login",
   "Delivery Adress",
@@ -22,9 +21,11 @@ export default function Checkout() {
   const [skipped, setSkipped] = React.useState(new Set());
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  console.log(URLSearchParams+"kjwbqfoqbopf");
   const step = queryParams.get('step');
   const navigate=useNavigate();
-  
+ 
+console.log("step",step)
 
 
   const handleNext = () => {
@@ -45,7 +46,9 @@ export default function Checkout() {
     setActiveStep(0);
   };
 
- 
+  const handlePayment=()=>{
+    console.log("handle payment")
+  }
 
   return (
     <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
@@ -75,10 +78,10 @@ export default function Checkout() {
         <React.Fragment>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
-              color="white"
+              color="inherit"
               disabled={step == 2}
               onClick={handleBack}
-              sx={{ mr: 1,bgcolor:"#7a08a3" }}
+              sx={{ mr: 1 }}
             >
               Back
             </Button>
