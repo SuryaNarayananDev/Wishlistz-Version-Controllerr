@@ -360,16 +360,15 @@ export default function ProductDetails() {
                 sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
               >
                   Out Of Stock
-                </Button>
-                }
+                </Button>}
                 <Button
-                id="hoverDpinkbtn"
+                  id="hoverDpinkbtn"
                   variant="contained"
                   sx={{ padding: ".8rem 2rem", marginTop: "2rem" ,bgcolor:"#e81e61"}}
-                 onClick={handleAddtoWish}
+                  onClick={handleAddtoWish}
                 >
-                  Wish
-                  <Wishheart/>
+                      Wish
+                20 <Wishheart/>
                 </Button>
                 
                 

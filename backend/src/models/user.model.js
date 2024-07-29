@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     required:true,
     default:"CUSTOMER"
   },
+  ph:{
+    type:Number,
+  },
   mobile: {
     type: String,
   },

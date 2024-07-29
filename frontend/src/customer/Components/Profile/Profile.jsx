@@ -4,8 +4,10 @@ import "./style.Profile.css"
 import { getUser,logout } from '../../../Redux/Auth/Action'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate} from "react-router-dom";
 function Profile() {
   const dispatch=useDispatch();
+  const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   const { auth } = useSelector((store) => store);
   console.log("user of profile",auth);
@@ -23,7 +25,7 @@ function Profile() {
 
 
   const handlePassword = () => {
-    console.log("password");
+    navigate("/forgot-password")
   }
 
 

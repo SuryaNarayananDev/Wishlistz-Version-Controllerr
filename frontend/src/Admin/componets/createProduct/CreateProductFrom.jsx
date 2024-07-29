@@ -65,7 +65,6 @@ const jwt=localStorage.getItem("jwt")
   const handleimgChange = (e, index) => {
     let { name,value } = e.target;
     name==="img_url"?name="src":name=e.target.name;
-
     const urls = [...productData.subImageUrl];
     urls[index][name] = value;
     setProductData((prevState) => ({
@@ -76,10 +75,9 @@ const jwt=localStorage.getItem("jwt")
 
   const handleSizeChange = (e, index) => {
     let { name, value } = e.target;
-    name==="size_quantity"?name="quantity":name=e.target.name;
-
-    const sizes = [...productData.size];
-    sizes[index][name] = value;
+      name==="size_quantity"?name="quantity":name=e.target.name;
+      const sizes = [...productData.size];
+      sizes[index][name] = value;
     setProductData((prevState) => ({
       ...prevState,
       size: sizes,

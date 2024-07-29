@@ -13,7 +13,7 @@ import Wish from "../customer/Components/Product/Wish/Wish"
 import DemoAdmin from "../Admin/Views/DemoAdmin";
 import AdminPannel from "../Admin/AdminPannel";
 import Navigation from "../customer/Components/Navbar/Navigation";
-
+import ForgotPage from "../customer/Components/Auth/forgotPage";
 const Routers = () => {
   return (
     <div>
@@ -35,7 +35,7 @@ const Routers = () => {
         <Route path="/wish" element={<Wish/>}></Route>
         <Route path="/admin" element={<AdminPannel/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
-
+        <Route path="/forgot-password" element={<ForgotPage />}></Route>
       </Routes>
        </div>
       

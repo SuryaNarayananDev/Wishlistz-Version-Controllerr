@@ -35,7 +35,7 @@ useEffect(()=>{
       lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-      
+      ph:data.get("ph")
     }
     console.log("user data",userData);
     dispatch(register(userData))
@@ -69,9 +69,41 @@ useEffect(()=>{
           <Grid item xs={12}>
             <TextField
               required
+              id="ph"
+              name="ph"
+              label="Phone No"
+              fullWidth
+              type="number"
+              autoComplete="given-name"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
               id="email"
               name="email"
               label="Email"
+              fullWidth
+              autoComplete="given-name"
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              className="bg-[#9155FD] w-full"
+              variant="contained"
+              size="large"
+              sx={{paddig:".8rem 0"}}
+            >
+              OTP
+            </Button>
+          </Grid>
+          <Grid item xs={8}>
+            <TextField
+              required
+              type="number"
+              id="code"
+              name="code"
+              label="Verfiy Code"
               fullWidth
               autoComplete="given-name"
             />
