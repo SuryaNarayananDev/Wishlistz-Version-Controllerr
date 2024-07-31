@@ -539,6 +539,7 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-3">
+                  {auth.user===null?"":
                   <Button
                     onClick={() => navigate("/cart")}
                     className="group -m-2 flex items-center p-2"
@@ -551,7 +552,7 @@ export default function Navigation() {
                       {cart.cart?.totalItem}
                     </span>
                     <span className="sr-only">Cart</span>
-                  </Button>
+                  </Button>}
                 </div>
               </div>
             </div>

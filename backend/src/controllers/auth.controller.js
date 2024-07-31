@@ -1,9 +1,10 @@
 const userService=require("../services/user.service.js")
 const jwtProvider=require("../config/jwtProvider.js")
+const jwt = require("jsonwebtoken");
 const bcrypt=require("bcrypt")
+const SECERET_KEY=process.env.SECERET_KEY
 const cartService=require("../services/cart.service.js")
 const wishService=require("../services/wish.service.js")
-
 const register=async(req,res)=>{
 
     try {
@@ -42,4 +43,8 @@ const login=async(req,res)=>{
         return res.status(500).send({error:error.message})
     }
 }
+
+
+
+
 module.exports={register,login}

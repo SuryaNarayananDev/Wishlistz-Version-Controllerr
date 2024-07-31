@@ -9,13 +9,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { findProductById } from "../../../../Redux/Customers/Product/Action";
 import { addItemToCart } from "../../../../Redux/Customers/Cart/Action";
-import { addItemToWish} from "../../../../Redux/Customers/Wish/Action"
+import { addItemToWish } from "../../../../Redux/Customers/Wish/Action"
 import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
 import Wishheart from "../ProductCard/wishheart";
 import AddcartIcon from "../ProductCard/carticon";
 import menShirt from "../../../../Data/Men/men_shirt.json"
 import AddWhatsappIcon from "./whatsappIcon";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -23,9 +23,6 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 
-const Wish = () => {
-  
-}
 const product = {
   name: "Basic Tee 6-Pack",
   price: "₹996",
@@ -82,54 +79,67 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState("");
   const [activeImage, setActiveImage] = useState(null);
-  const [sizeClick,setsizeClick]=useState(false)
-  const [indicate,setindicate]=useState(false)
-  const [WhatsappBtn,setWhatsappbtn]=useState(false)
-  const [createWhatsappLink,setWhatsappLink]=useState("")
+  const [sizeClick, setsizeClick] = useState(false)
+  const [indicate, setindicate] = useState(false)
+  const [WhatsappBtn, setWhatsappbtn] = useState(false)
+  const [createWhatsappLink, setWhatsappLink] = useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { customersProduct,review } = useSelector((store) => store);
+  const { customersProduct, review, auth } = useSelector((store) => store);
   const { productId } = useParams();
   const jwt = localStorage.getItem("jwt");
-  console.log("snfl" , customersProduct.product?.category.name);
+
+  if (auth.user?.role==="CUSTOMER") {
+    console.log("user exits")
+  }else if (auth.user===null) {
+    console.log("user are noy fount");
+  }else{
+    console.log("somethig is missing");
+  }
 
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
-    console.log(image+"image in row==");
+    console.log(image + "image in row==");
   };
 
   const handleWhatsapp = () => {
     setWhatsappbtn(!WhatsappBtn)
   };
- 
-  const handleAddSize=(event)=>{
+
+  const handleAddSize = (event) => {
     setSelectedSize(event.target.value)
     setsizeClick(true)
   }
-  
+
   const handleAddtoCart = () => {
-    if (sizeClick===true) {
-      const data = { productId, size:selectedSize};
-    dispatch(addItemToCart({ data, jwt }));
-    navigate("/cart"); 
-    }else{
-      setindicate(true)
+    if (auth.user === null) {
+      alert("Please Login to CheckOut")
+    }else if (auth.user?.role==="CUSTOMER") {
+      if (sizeClick === true) {
+        const data = { productId, size: selectedSize };
+        dispatch(addItemToCart({ data, jwt }));
+        navigate("/cart");
+      } else {
+        setindicate(true)
+      }
     }
     
+
   };
 
   const handleAddtoWish = () => {
-    if (sizeClick===true) {
-    const data = { productId, size: selectedSize.name };
-    dispatch(addItemToWish({ data, jwt }));
-    }else
-    {
-      setindicate(true)
+    if (auth.user===null) {
+      alert("Please Login to CheckOut")
+    }else if (auth.user?.role==="CUSTOMER") {
+      if (sizeClick === true) {
+        const data = { productId, size: selectedSize.name };
+        dispatch(addItemToWish({ data, jwt }));
+      } else {
+        setindicate(true)
+      }
     }
   };
-
-  const[Suggest,setSuggest]=useState("")
 
   useEffect(() => {
     const data = { productId: productId, jwt };
@@ -139,10 +149,10 @@ export default function ProductDetails() {
   }, [productId]);
 
   // console.log(subImageOfProduct+"images of product");
-  const isStock=customersProduct.product?.quantity;
+  const isStock = customersProduct.product?.quantity;
 
   return (
-  
+
     <div className="bg-white lg:px-20">
       <div className="Pop-Show">
 
@@ -199,47 +209,47 @@ export default function ProductDetails() {
               />
             </div>
             <div className="flex flex-wrap space-x-5 justify-center">
-              {customersProduct.product?.subImageUrl.map((image,index) => (
+              {customersProduct.product?.subImageUrl.map((image, index) => (
                 <div
                   onClick={() => handleSetActiveImage(image)}
                   className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-w-[5rem] max-h-[5rem] mt-4">
-                    <img
-                      src={image.src}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
-              ))}  
+                  <img
+                    src={image.src}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+              ))}
             </div>
-          <div>
-            <Button
-                  id="hoverGreenbtn"
-                  variant="contained"
-                  type="button"
-                  onClick={handleWhatsapp}
-                  
-                  sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
-                >
-                  Whatsapp
-                  <AddWhatsappIcon/>
-                </Button>
-                {/* Create Whatsapp HyperLinks */}
-            {WhatsappBtn===true?
-                  <div>
-                    <div className="whatsapp-container">
-                      <p className="algin-text-center">For More Details</p>
-                      <div className='space-y-3'>
+            <div>
+              <Button
+                id="hoverGreenbtn"
+                variant="contained"
+                type="button"
+                onClick={handleWhatsapp}
+
+                sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+              >
+                Whatsapp
+                <AddWhatsappIcon />
+              </Button>
+              {/* Create Whatsapp HyperLinks */}
+              {WhatsappBtn === true ?
+                <div>
+                  <div className="whatsapp-container">
+                    <p className="algin-text-center">For More Details</p>
+                    <div className='space-y-3'>
                       <p className='wa-font-15px'>Product: {productId}</p>
-                        <CopyToClipboard text={createWhatsappLink}>
-                          <button className='wa-btn'>Copy</button>
-                        </CopyToClipboard>
+                      <CopyToClipboard text={createWhatsappLink}>
+                        <button className='wa-btn'>Copy</button>
+                      </CopyToClipboard>
                       <p>Click Copy button and click below button</p>
-                            <hr/>
+                      <hr />
                     </div>
-                    <div  className='algin-center-btn'>
-                      <Button id="hoverGreenbtn" href="https://wa.me/9446976017">Whatsapp Chat<AddWhatsappIcon/></Button>
+                    <div className='algin-center-btn'>
+                      <Button id="hoverGreenbtn" href="https://wa.me/9446976017">Whatsapp Chat<AddWhatsappIcon /></Button>
                     </div>
-                    </div>
-                </div>:""}
+                  </div>
+                </div> : ""}
 
             </div>
           </div>
@@ -293,86 +303,86 @@ export default function ProductDetails() {
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   </div>
-                {/* Select size Function */}
-                {customersProduct.product?.sizes[3].quantity>9? 
-                <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    value={selectedSize}
-                    onChange={handleAddSize}
-                    is
-                  >
-                  <FormControlLabel value="S" control={<Radio />} label="S" />
-                  <FormControlLabel value="M" control={<Radio />} label="M" />
-                  <FormControlLabel value="L" control={<Radio />} label="L" />
-                  <FormControlLabel value="XL" control={<Radio />} label="XL" />
-                  <FormControlLabel
-                    value="Free Size"
-                    disabled
-                    control={<Radio />}
-                    label="Free Size"
-                  />
-                  </RadioGroup>
-                </FormControl>
-                :
-                <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    value={selectedSize}
-                    onChange={handleAddSize}
-                    is
-                  >
-                  <FormControlLabel
-                    value="Free Size"
-                    control={<Radio />}
-                    label="Free Size"
-                  />
-                  </RadioGroup>
-                </FormControl>
-}
-                {indicate===true?<p className='indicateDanger'>Please Select Size *</p>:""} 
+                  {/* Select size Function */}
+                  {customersProduct.product?.sizes[3].quantity > 9 ?
+                    <FormControl>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        value={selectedSize}
+                        onChange={handleAddSize}
+                        is
+                      >
+                        <FormControlLabel value="S" control={<Radio />} label="S" />
+                        <FormControlLabel value="M" control={<Radio />} label="M" />
+                        <FormControlLabel value="L" control={<Radio />} label="L" />
+                        <FormControlLabel value="XL" control={<Radio />} label="XL" />
+                        <FormControlLabel
+                          value="Free Size"
+                          disabled
+                          control={<Radio />}
+                          label="Free Size"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                    :
+                    <FormControl>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        value={selectedSize}
+                        onChange={handleAddSize}
+                        is
+                      >
+                        <FormControlLabel
+                          value="Free Size"
+                          control={<Radio />}
+                          label="Free Size"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  }
+                  {indicate === true ? <p className='indicateDanger'>Please Select Size *</p> : ""}
                 </div>
 
-                
 
-               {/* Main Function button AddToCart And Wish */}
-              
+
+                {/* Main Function button AddToCart And Wish */}
+
                 <div className="flex space-x-3 ">
-                  {isStock>0?
+                  {isStock > 0 ?
                     <Button
                       id="hoverOrangebtn"
                       variant="contained"
                       type="button"
                       onClick={handleAddtoCart}
-                      
+
                       sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
                     >
                       ADD to Cart
-                  <AddcartIcon/>
-                </Button> 
-                :
-                <Button disabled
-                variant="contained"
-                sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
-              >
-                  Out Of Stock
-                </Button>}
-                <Button
-                  id="hoverDpinkbtn"
-                  variant="contained"
-                  sx={{ padding: ".8rem 2rem", marginTop: "2rem" ,bgcolor:"#e81e61"}}
-                  onClick={handleAddtoWish}
-                >
-                      Wish
-                20 <Wishheart/>
-                </Button>
-                
-                
-               
+                      <AddcartIcon />
+                    </Button>
+                    :
+                    <Button disabled
+                      variant="contained"
+                      sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                    >
+                      Out Of Stock
+                    </Button>}
+                  <Button
+                    id="hoverDpinkbtn"
+                    variant="contained"
+                    sx={{ padding: ".8rem 2rem", marginTop: "2rem", bgcolor: "#e81e61" }}
+                    onClick={handleAddtoWish}
+                  >
+                    Wish
+                    <Wishheart />
+                  </Button>
+
+
+
                 </div>
               </form>
             </div>
@@ -421,12 +431,12 @@ export default function ProductDetails() {
           <h1 className="font-semibold text-lg pb-4" id="getSpaceFromLeft">
             Recent Review & Ratings
           </h1>
-          
+
           <div className="border p-5">
             <Grid container spacing={7}>
               <Grid item xs={6}>
                 <div className="space-y-5">
-                  { review.reviews?.map((item, i) => (
+                  {review.reviews?.map((item, i) => (
                     <ProductReviewCard item={item} />
                   ))}
                 </div>
@@ -451,7 +461,7 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid  xs={2}>
+                    <Grid xs={2}>
                       <p className="p-0">Excellent</p>
                     </Grid>
                     <Grid xs={7}>
@@ -581,11 +591,11 @@ export default function ProductDetails() {
         <section className=" pt-10">
           <h1 className="py-5 text-xl font-bold">Similer Products</h1>
           <Grid id="card"  >
-          <div xs={12}  className="flex flex-wrap space-y-5 " style={{display:"flex",justifyContent:"center"}}>
-            {menShirt.map((item) => (
-              <HomeProductCard product={item} />
-            ))}
-          </div>
+            <div xs={12} className="flex flex-wrap space-y-5 " style={{ display: "flex", justifyContent: "center" }}>
+              {menShirt.map((item) => (
+                <HomeProductCard product={item} />
+              ))}
+            </div>
           </Grid>
         </section>
       </div>

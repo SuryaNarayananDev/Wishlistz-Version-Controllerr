@@ -3,8 +3,10 @@ import { useState } from 'react'
 import "./auth.css"
 import { FormLabel, Grid,TextField,Button } from '@mui/material'
 import { Label } from 'mdi-material-ui'
-function ForgotPage() {
+import { useDispatch } from 'react-redux'
 
+function ForgotPage() {
+  const dispatch=useDispatch();
   const [inputchecker1,setiunputchecker1]=useState(false)
   const [inputchecker2,setiunputchecker2]=useState(false)
   const [Indicators,setIndicators]=useState(false)
@@ -17,20 +19,22 @@ const handleSubmit=(event)=>{
   {
     setinputotpchecker(true)
     setIndicators(true)
-  }else{
-    
-  }
-}
 
-const handleverify=(event)=>{
-  event.preventDefault();
-  if(inputotpchecker1===true)
-  {
+    const data = new FormData(event.currentTarget);
+    
+    const userData={
+      email: data.get("email"),
+    }
+    console.log("login user",userData);
+  
+      //resetpasswod function
 
   }else{
-    
+
+  };
+
   }
-}
+
 
   return (
     <div>
@@ -42,7 +46,6 @@ const handleverify=(event)=>{
         <Grid item xs={12}>
             <TextField
               required
-              // inputProps={{ maxLength: 15, }}
               id="name"
               name="name"
               label="Name"
@@ -82,7 +85,7 @@ const handleverify=(event)=>{
         </form>
 
 
-        {inputotpchecker===true?
+        {/* {inputotpchecker===true?
         <form onClick={handleverify} className='space-y-3'>
         <FormLabel>Enter Your Email ID</FormLabel>
         <Grid item xs={12}>
@@ -115,7 +118,7 @@ const handleverify=(event)=>{
           </Grid>
 
           </form>
-        :""}
+        :""} */}
           
       </div>
     </div>

@@ -10,6 +10,7 @@ app.get("/",(req,res)=>{
     return res.status(200).send({message:"welcome to Wishlistz api - node"})
 })
 
+
 const authRouter=require("./routes/auth.routes.js")
 app.use("/auth",authRouter)
 

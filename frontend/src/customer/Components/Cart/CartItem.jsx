@@ -23,7 +23,9 @@ const CartItem = ({ item,showButton}) => {
     dispatch(updateCartItem(data))
   }
 
-
+  const handleNavigate=(proId)=>{
+    navigate(`/product/${proId}`)
+  }
   return (
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">
@@ -34,7 +36,7 @@ const CartItem = ({ item,showButton}) => {
             alt=""
           />
         </div>
-        <div className="ml-5 space-y-1">
+        <div className="ml-5 space-y-1"  id="isHover"  onClick={()=>handleNavigate(item?.product._id)}>
           <p className="font-semibold">{item?.product?.title}</p>
           <p className="opacity-70">Size: {item?.size},White</p>
           <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p>

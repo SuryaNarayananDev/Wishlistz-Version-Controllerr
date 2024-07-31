@@ -13,20 +13,17 @@ const Cart = () => {
   const {cart}=useSelector(store=>store);
   console.log("cart ",cart)
 
-  const handleNavigate=(proId)=>{
-    navigate(`/product/${proId}`)
-  }
-
   useEffect(() => {
     dispatch(getCart(jwt));
   }, [jwt]);
+
   return (
     <div className="">
       {cart.cartItems.length>0 && <div  className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="lg:col-span-2 lg:px-5 bg-white">
         <div className=" space-y-3">
           {cart.cartItems.map((item) => (
-            <div id="isHover"  onClick={()=>handleNavigate(item?.product._id)}>
+            <div >
               <CartItem item={item} showButton={true} />
             </div>
           ))}
