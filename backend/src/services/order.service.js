@@ -5,6 +5,7 @@ const cartService = require("../services/cart.service.js");
 
 async function createOrder(user, shippAddress) {
   let address;
+  //shippingAddress
   if (shippAddress._id) {
     let existedAddress = await Address.findById(shippAddress._id);
     address = existedAddress;

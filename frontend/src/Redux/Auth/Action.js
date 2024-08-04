@@ -10,9 +10,6 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
   LOGOUT,
-  RESETPASS_REQUEST,
-  RESETPASS_SUCCESS,
-  RESETPASS_FAILURE
 } from './ActionTypes';
 import api, { API_BASE_URL } from '../../config/api';
 
@@ -34,7 +31,8 @@ export const register = userData => async dispatch => {
   }
 };
 
-// ResetPassword action creators
+
+
 
 // Login action creators
 const loginRequest = () => ({ type: LOGIN_REQUEST });

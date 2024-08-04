@@ -5,9 +5,6 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  RESETPASS_REQUEST,
-  RESETPASS_SUCCESS,
-  RESETPASS_FAILURE,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
@@ -22,7 +19,8 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-
+    
+   
       case REGISTER_REQUEST:
     case LOGIN_REQUEST:
       return { ...state, isLoading: true, error: null };

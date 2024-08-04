@@ -31,18 +31,5 @@ const findUserWish = async (req, res) => {
     }
   }
   
-  const emptyCartList = async (req) => {
-    try {
-      const user = req.user;
-      const cart = await cartService.findUserCart(user.id).then((cart)=>{
-         cartService.makeCartEmpty(cart)
-      })
-
-      res.status(200).json(cart);
-    } catch (error) {
-      // Handle error here and send appropriate response
-      res.status(500).json({ message: "Failed to get user cart.", error: error.message });}
-    
-  }
 
   module.exports={findUserWish,addItemToWish};

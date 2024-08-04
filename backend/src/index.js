@@ -14,6 +14,9 @@ app.get("/",(req,res)=>{
 const authRouter=require("./routes/auth.routes.js")
 app.use("/auth",authRouter)
 
+const verifyRouter=require("./routes/verify.routes.js");
+app.use("/api/verify",verifyRouter);
+
 const userRouter=require("./routes/user.routes.js");
 app.use("/api/users",userRouter)
 

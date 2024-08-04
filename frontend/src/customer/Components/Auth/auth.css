@@ -1,5 +1,25 @@
 .forgotpage-container{
-    width: 300px;
+    width: 350px;
+    padding: 10px;
     height: auto;
     margin: auto;
+    border: 2px solid black;
+    border-color: black;
+}
+
+.checkmail-container{
+    width: 350px;
+    padding: 10px;
+    height: auto;
+    margin: auto;
+    border: 2px solid black;
+    border-color: black;
+}
+
+.inline-verify{
+    margin-left: 35%;
+}
+
+.align-center-verify{
+    margin-left:35%;
 }

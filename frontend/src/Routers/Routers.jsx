@@ -14,6 +14,8 @@ import DemoAdmin from "../Admin/Views/DemoAdmin";
 import AdminPannel from "../Admin/AdminPannel";
 import Navigation from "../customer/Components/Navbar/Navigation";
 import ForgotPage from "../customer/Components/Auth/forgotPage";
+import ValidateEmail from "../customer/Components/Auth/validateEmail";
+import CheckEmail from "../customer/Components/Auth/checkemail";
 const Routers = () => {
   return (
     <div>
@@ -36,6 +38,8 @@ const Routers = () => {
         <Route path="/admin" element={<AdminPannel/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
         <Route path="/forgot-password" element={<ForgotPage />}></Route>
+        <Route path="/verify-email" element={<ValidateEmail />}></Route>
+        <Route path="/email-status" element={<CheckEmail />}></Route>
       </Routes>
        </div>
       

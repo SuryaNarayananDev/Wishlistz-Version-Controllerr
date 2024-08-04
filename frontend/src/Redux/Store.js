@@ -8,8 +8,7 @@ import wishReducer from "./Customers/Wish/Reducer";
 import { orderReducer } from "./Customers/Order/Reducer";
 import adminOrderReducer from "./Admin/Orders/Reducer";
 import ReviewReducer from "./Customers/Review/Reducer";
-
-
+import sentOtpReducer from "./Customers/Verify/Reducer";
 
 
 
@@ -21,6 +20,7 @@ const rootReducers=combineReducers({
     wish:wishReducer,
     order:orderReducer,
     review:ReviewReducer,
+    sentOtp:sentOtpReducer,
 
     // admin
     adminsProduct:productReducer,

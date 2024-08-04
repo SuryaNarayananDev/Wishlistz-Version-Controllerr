@@ -23,12 +23,21 @@ const userSchema = new mongoose.Schema({
     required:true,
     default:"CUSTOMER"
   },
+  Verifyemail:{
+    type:Boolean,
+    default:false
+  },
   ph:{
-    type:Number,
+    type:String,
+    required:true
   },
   mobile: {
     type: String,
   },
+  otp:{
+    type:String,
+    default:"null_otp"
+  }, 
   addresses: [
     {
         type: mongoose.Schema.Types.ObjectId,

@@ -119,7 +119,13 @@ export default function ProductDetails() {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize };
         dispatch(addItemToCart({ data, jwt }));
-        navigate("/cart");
+        if(auth.user?.Verifyemail===true)
+        {
+          navigate("/cart")
+        }
+        else{
+          navigate("/verify-email")
+        }
       } else {
         setindicate(true)
       }

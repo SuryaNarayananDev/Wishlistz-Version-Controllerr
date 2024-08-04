@@ -6,7 +6,7 @@ const jwtProvider=require("../config/jwtProvider.js")
 const createUser = async (userData)=>{
     try {
 
-        let {firstName,lastName,email,password,role}=userData;
+        let {firstName,lastName,email,password,role,ph}=userData;
 
         const isUserExist=await User.findOne({email});
 
@@ -17,7 +17,7 @@ const createUser = async (userData)=>{
 
         password=await bcrypt.hash(password,8);
     
-        const user=await User.create({firstName,lastName,email,password,role})
+        const user=await User.create({firstName,lastName,email,password,role,ph})
 
         console.log("user ",user)
     
@@ -98,6 +98,18 @@ const getAllUsers=async()=>{
         console.log("error - ",error)
         throw new Error(error.message)
     }
+}
+const updateUserOtp=async(user,otp)=>{
+    try {
+        user.otp=otp;
+        await user.save();
+        return user;
+        } catch (error) {
+            console.log("error - update Otp in user service",error)
+            throw new Error(error.message)
+            }
+
+
 }
 
 module.exports={

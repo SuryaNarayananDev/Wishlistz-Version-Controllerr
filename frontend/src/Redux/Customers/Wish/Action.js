@@ -47,6 +47,7 @@ console.log("add item to WISH ",data)
     });
   }
 };
+
 export const getWish = (jwt) => async (dispatch) => {
   try {
     dispatch({ type: GET_WISH_REQUEST });

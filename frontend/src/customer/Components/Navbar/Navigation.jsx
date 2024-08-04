@@ -24,12 +24,12 @@ export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { auth,cart } = useSelector((store) => store);
+  const { auth, cart } = useSelector((store) => store);
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
-  const location=useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     if (jwt) {
@@ -37,7 +37,7 @@ export default function Navigation() {
       dispatch(getCart(jwt));
     }
   }, [jwt]);
-  
+
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,7 +50,7 @@ export default function Navigation() {
   };
   const handleClose = () => {
     setOpenAuthModal(false);
-   
+
   };
 
   const handleProfileMenu = () => {
@@ -63,16 +63,16 @@ export default function Navigation() {
     close();
   };
 
-  const handleCategoryClickmobile = (category, section, item ) => {
+  const handleCategoryClickmobile = (category, section, item) => {
     navigate(`/${category.id}/${section.id}/${item.id}`);
-    
+
   };
 
   useEffect(() => {
-    if (auth.user){ 
+    if (auth.user) {
       handleClose();
     }
-    if( auth.user?.role!=="ADMIN" && (location.pathname==="/login" || location.pathname==="/register")){
+    if (auth.user?.role !== "ADMIN" && (location.pathname === "/login" || location.pathname === "/register")) {
       navigate(-1)
     }
   }, [auth.user]);
@@ -81,11 +81,11 @@ export default function Navigation() {
     handleCloseUserMenu();
     dispatch(logout());
   };
-  const handleMyOrderClick=()=>{
+  const handleMyOrderClick = () => {
     handleCloseUserMenu()
     navigate("/account/order")
   }
-  const handlewishItem=()=>{
+  const handlewishItem = () => {
     handleCloseUserMenu()
     navigate("/wish")
   }
@@ -200,24 +200,24 @@ export default function Navigation() {
                               className="mt-6 flex flex-col space-y-6"
                             >
                               {section.items.map((item) => (
-                                              <li
-                                                key={item.name}
-                                                className="flex"
-                                              >
-                                                <p
-                                                  onClick={() =>
-                                                    handleCategoryClickmobile(
-                                                      category,
-                                                      section,
-                                                      item
-                                                    )
-                                                  }
-                                                  className="cursor-pointer hover:text-gray-800"
-                                                >
-                                                  {item.name}
-                                                </p>
-                                              </li>
-                                            ))}
+                                <li
+                                  key={item.name}
+                                  className="flex"
+                                >
+                                  <p
+                                    onClick={() =>
+                                      handleCategoryClickmobile(
+                                        category,
+                                        section,
+                                        item
+                                      )
+                                    }
+                                    className="cursor-pointer hover:text-gray-800"
+                                  >
+                                    {item.name}
+                                  </p>
+                                </li>
+                              ))}
                             </ul>
                           </div>
                         ))}
@@ -241,36 +241,36 @@ export default function Navigation() {
 
                 <div className="space-y-8 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                  {auth.user ? (
+                    {auth.user ? (
                       <div className="flex ">
                         <Avatar
-                        className="text-white"
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        // onClick={handleUserClick}
-                        sx={{
-                          bgcolor: deepPurple[500],
-                          color: "white",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {auth.user?.firstName[0].toUpperCase()}
-                      </Avatar>
-                  <Button
-                      onClick={handleLogout}
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800 "
-                    >
-                      Logout
-                    </Button>
-                    </div>):(
+                          className="text-white"
+                          aria-controls={open ? "basic-menu" : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? "true" : undefined}
+                          // onClick={handleUserClick}
+                          sx={{
+                            bgcolor: deepPurple[500],
+                            color: "white",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {auth.user?.firstName[0].toUpperCase()}
+                        </Avatar>
+                        <Button
+                          onClick={handleLogout}
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800 "
+                        >
+                          Logout
+                        </Button>
+                      </div>) : (
                       <Button
-                      onClick={handleOpen}
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      SignIn
-                    </Button>
-                  )}
+                        onClick={handleOpen}
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        SignIn
+                      </Button>
+                    )}
                   </div>
                 </div>
 
@@ -300,8 +300,8 @@ export default function Navigation() {
 
         <nav aria-label="Top" className="mx-auto">
           <div className="border-b border-gray-200">
-            
-            <div  className="flex h-20 lg:h-16 items-center px-2 lg:px-12 ">
+
+            <div className="flex h-20 lg:h-16 items-center px-2 lg:px-12 ">
               <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
@@ -323,12 +323,12 @@ export default function Navigation() {
                 </Link>
               </div>
               <Link to="/" className="flex items-center ml-8">
-                  <img
-                      src="https://i.imgur.com/CeDLvPB.png"
-                      alt="wistlistz"
-                      className="h-8 w-15 mr-2 ml-2 mt-3"
-                    />
-                </Link>
+                <img
+                  src="https://i.imgur.com/CeDLvPB.png"
+                  alt="wistlistz"
+                  className="h-8 w-15 mr-2 ml-2 mt-3"
+                />
+              </Link>
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
@@ -337,9 +337,9 @@ export default function Navigation() {
                     <Popover key={category.name} className="flex">
                       {({ open, close }) => (
                         <>
-                          <div  className="relative flex">
+                          <div className="relative flex">
                             <Popover.Button
-                            id="sizedeclareup"
+                              id="sizedeclareup"
                               className={classNames(
                                 open
                                   ? "border-indigo-600 text-indigo-600"
@@ -504,7 +504,7 @@ export default function Navigation() {
                         <MenuItem onClick={handleProfileMenu}>
                           Profile
                         </MenuItem>
-                        
+
                         <MenuItem onClick={handleMyOrderClick}>
                           My Orders
                         </MenuItem>
@@ -539,20 +539,20 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-3">
-                  {auth.user===null?"":
-                  <Button
-                    onClick={() => navigate("/cart")}
-                    className="group -m-2 flex items-center p-2"
-                  >
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      {cart.cart?.totalItem}
-                    </span>
-                    <span className="sr-only">Cart</span>
-                  </Button>}
+                  {auth.user === null ? "" :
+                    <Button
+                      onClick={() => navigate("/cart")}
+                      className="group -m-2 flex items-center p-2"
+                    >
+                      <ShoppingBagIcon
+                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {cart.cart?.totalItem}
+                      </span>
+                      <span className="sr-only">Cart</span>
+                    </Button>}
                 </div>
               </div>
             </div>

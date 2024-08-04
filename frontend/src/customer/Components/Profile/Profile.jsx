@@ -44,7 +44,7 @@ function Profile() {
                     </div>
                     <div className="flex space-x-3">
                       <span>Phone No : </span>
-                      <span className="text-green-700">{auth.user?.phone}</span>
+                      <span className="text-green-700">{auth.user?.ph}</span>
                     </div>
                     <div className="flex space-x-3">
                       <span>User Email : </span>
@@ -52,15 +52,15 @@ function Profile() {
                     </div>
                     <div className="flex space-x-3">
                       <span>City:</span>
-                      <span className="text-green-700">{auth.user?.addresses[0].city}</span>
+                      <span className="text-green-700">{auth.user?.addresses[0]?.city}</span>
                     </div>
                     <div className="flex space-x-3">
                       <span>State :</span>
-                      <span className="text-green-700">{auth.user?.addresses[0].state}</span>
+                      <span className="text-green-700">{auth.user?.addresses[0]?.state}</span>
                     </div>
                     <div className="flex space-x-3">
                       <span>Zip :</span>
-                      <span className="text-green-700">{auth.user?.addresses[0].zipCode}</span>
+                      <span className="text-green-700">{auth.user?.addresses[0]?.zipCode}</span>
                     </div>
                   </div>
                   <br></br>

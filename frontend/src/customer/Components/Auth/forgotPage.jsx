@@ -41,7 +41,6 @@ const handleSubmit=(event)=>{
       <div className='forgotpage-container'>
         <p className='algin-text-center'>PASSWORD</p><br/>
         <form className='form-container space-y-3' onClick={handleSubmit}>
-        
         <FormLabel>Enter Your Name</FormLabel>
         <Grid item xs={12}>
             <TextField

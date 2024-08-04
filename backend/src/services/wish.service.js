@@ -46,7 +46,7 @@ async function addWishItem(userId, req) {
   const wish = await Wish.findOne({ user: userId });
   const product = await Product.findById(req.productId);
   const isPresent = await WishItem.findOne({ wish: wish._id, product: product._id, userId });
-  console.log("data in service wish" );
+  console.log("service of wish 909090909" );
 
   if (!isPresent) {
     const wishItem = new WishItem({

@@ -20,7 +20,8 @@ import PaymentSuccess from "../customer/Components/paymentSuccess/PaymentSuccess
 import RateProduct from "../customer/Components/ReviewProduct/RateProduct";
 import Profile from "../customer/Components/Profile/Profile";
 import ForgotPage from "../customer/Components/Auth/forgotPage";
-
+import ValidateEmail from "../customer/Components/Auth/validateEmail"
+import CheckEmail from "../customer/Components/Auth/checkemail";
 const CustomerRoutes = () => {
     const location = useLocation();
     
@@ -50,9 +51,11 @@ const CustomerRoutes = () => {
         <Route path="/wish" element={<Wish />}></Route>
         <Route path="/forgot-password" element={<ForgotPage />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/verify-email" element={<ValidateEmail />}></Route>
         <Route path="/account/order" element={<Order />}></Route>
         <Route path="/account/order/:orderId" element={<OrderDetails />}></Route>
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
+        <Route path="/auth/email-status" element={<CheckEmail />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
