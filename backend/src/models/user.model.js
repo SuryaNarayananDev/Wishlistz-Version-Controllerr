@@ -37,7 +37,21 @@ const userSchema = new mongoose.Schema({
   otp:{
     type:String,
     default:"null_otp"
-  }, 
+  },
+  valid:{
+    type:Boolean,
+    default:false
+  } ,
+  gender:{
+    type:String,
+    default:"MEN"
+  } ,
+  coupon: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "couponcode",
+    },
+  ],
   addresses: [
     {
         type: mongoose.Schema.Types.ObjectId,

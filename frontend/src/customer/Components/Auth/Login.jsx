@@ -86,6 +86,13 @@ export default function LoginUserForm({ handleNext }) {
           Register
         </Button>
         </div>
+        <div className="py-3 flex items-center">
+        <Button onClick={()=> navigate("/forgot-password")
+        } className="ml-5" size="small">
+          Forgot Password ?
+        </Button>
+        </div>
+
       </div>
       <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
         <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '100%' }}>

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router'
 const navigate = useNavigate();
-function ForgotPage() {
+function routeToSignUpPage() {
   return (
     <div>
       <h1>Please SignUp For Explore more! </h1>
@@ -20,4 +20,4 @@ function ForgotPage() {
   )
 }
 
-export default ForgotPage
+export default routeToSignUpPage

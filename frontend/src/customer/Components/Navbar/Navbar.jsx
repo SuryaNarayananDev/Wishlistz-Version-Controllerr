@@ -17,7 +17,7 @@ function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center py-6">
               <img
-                src="https://i.imgur.com/WclpkA2.png"
+                src="https://imgur.com/bU1hLow"
                 alt="wistlistz"
                 className="h-8 w-8 mr-2"
               />

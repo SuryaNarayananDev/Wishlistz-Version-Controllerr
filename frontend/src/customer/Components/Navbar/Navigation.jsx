@@ -77,6 +77,14 @@ export default function Navigation() {
     }
   }, [auth.user]);
 
+  const handlecartclick=()=>{
+    if(auth.user?.Verifyemail===false){
+        navigate("/verify-email")
+    }else{
+      navigate("/cart")
+    }
+  }
+
   const handleLogout = () => {
     handleCloseUserMenu();
     dispatch(logout());
@@ -316,7 +324,7 @@ export default function Navigation() {
                 <Link to="/">
                   <span className="sr-only">WishListz</span>
                   <img
-                    src="https://i.imgur.com/WclpkA2.png"
+                    src="https://i.imgur.com/ARoLD16.png"
                     alt="Wishlistz"
                     className="h-8 w-8 mr-2"
                   />
@@ -541,7 +549,7 @@ export default function Navigation() {
                 <div className="ml-4 flow-root lg:ml-3">
                   {auth.user === null ? "" :
                     <Button
-                      onClick={() => navigate("/cart")}
+                      onClick={handlecartclick}
                       className="group -m-2 flex items-center p-2"
                     >
                       <ShoppingBagIcon

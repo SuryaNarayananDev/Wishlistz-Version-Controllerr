@@ -19,9 +19,9 @@ import Footer from "../customer/Components/footer/Footer";
 import PaymentSuccess from "../customer/Components/paymentSuccess/PaymentSuccess";
 import RateProduct from "../customer/Components/ReviewProduct/RateProduct";
 import Profile from "../customer/Components/Profile/Profile";
-import ForgotPage from "../customer/Components/Auth/forgotPage";
 import ValidateEmail from "../customer/Components/Auth/validateEmail"
 import CheckEmail from "../customer/Components/Auth/checkemail";
+import ForgotPassword from "../customer/Components/Auth/forgotPassword";
 const CustomerRoutes = () => {
     const location = useLocation();
     
@@ -49,7 +49,7 @@ const CustomerRoutes = () => {
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/wish" element={<Wish />}></Route>
-        <Route path="/forgot-password" element={<ForgotPage />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/verify-email" element={<ValidateEmail />}></Route>
         <Route path="/account/order" element={<Order />}></Route>

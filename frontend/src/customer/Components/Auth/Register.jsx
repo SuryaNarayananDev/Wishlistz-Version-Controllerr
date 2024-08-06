@@ -5,6 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../../Redux/Auth/Action";
 import { Fragment, useEffect, useState } from "react";
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 export default function RegisterUserForm({ handleNext }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,10 +19,12 @@ export default function RegisterUserForm({ handleNext }) {
   const handleClose = () => setOpenSnackBar(false);
   const [validateNumber, setvalidateNumber] = useState(false)
   const [validateNumberMess, setvalidateNumberMess] = useState("")
+  const [errormess, seterrormess] = useState({ fname: "", lname: "", email: "" ,pass:"",gender:"",ph:""});
   const [passwordValidator, setpasswordValidator] = useState(false)
-  const [value, setValue] = useState("");
+  const [gender, setgender] = useState(false);
   const jwt = localStorage.getItem("jwt");
-
+  const [selectedgender, setselectedgender] = useState("");
+ 
 
   useEffect(() => {
     if (jwt) {
@@ -52,20 +60,6 @@ export default function RegisterUserForm({ handleNext }) {
     if (auth.user || auth.error) setOpenSnackBar(true)
   }, [auth.user]);
 
-  const handlecheckandsubmit=(event)=>{
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const userData = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      ph: data.get("ph")
-    }
-    console.log("user data", userData);
-    dispatch(register(userData))
-    
-  }
 
   const handlePassword=(e)=>{
     console.log(e.target.value);
@@ -78,22 +72,30 @@ export default function RegisterUserForm({ handleNext }) {
     }
   }
 
+  const handleAddgender = (event) => {
+    setselectedgender(event.target.value)
+    setgender(true)
+  }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateNumber===true&& passwordValidator===true) {
+    if (validateNumber===true&& passwordValidator===true&&gender===true) 
+      {
       const data = new FormData(event.currentTarget);
       const userData = {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-      ph: data.get("ph")
+      ph: data.get("ph"),
+      gender:selectedgender
+
     }
     console.log("user Created +++++++++++++++++++++++++", userData);
     dispatch(register(userData))
     }
     else{
-      console.log("please enter valid input");
+      seterrormess({gender:"Please select gender"})
     }
    
 
@@ -114,6 +116,9 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
+
+          <FormLabel>{errormess?.fname}</FormLabel>
+
           <Grid item xs={12} sm={6}>
             <TextField
               required
@@ -124,6 +129,9 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
+
+          <FormLabel>{errormess?.lname}</FormLabel>
+
           <Grid item xs={12}>
 
             <TextField
@@ -137,6 +145,9 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
+
+          <FormLabel>{errormess?.ph}</FormLabel>
+
           <Grid item xs={12}>
             <TextField
               required
@@ -148,6 +159,8 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
+
+          <FormLabel>{errormess?.email}</FormLabel>
 
           <Grid item xs={12}>
             <TextField
@@ -162,7 +175,24 @@ export default function RegisterUserForm({ handleNext }) {
               onChange={handlePassword}
             />
           </Grid>
-
+          <FormLabel>{errormess?.pass}</FormLabel>
+          <Grid item xs={12}>
+          <FormControl>
+      <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+        value={selectedgender}
+        onChange={handleAddgender}
+      >
+        <FormControlLabel value="FEMALE" control={<Radio />} label="Female" />
+        <FormControlLabel value="MALE" control={<Radio />} label="Male" />
+        <FormControlLabel value="OTHER" control={<Radio />} label="Other" />
+      </RadioGroup>
+       </FormControl>
+          </Grid>
+          <FormLabel>{errormess?.gender}</FormLabel>
           <Grid item xs={12}>
             <Button
               className="bg-[#9155FD] w-full"
@@ -170,7 +200,6 @@ export default function RegisterUserForm({ handleNext }) {
               variant="contained"
               size="large"
               sx={{ padding: ".8rem 0" }}
-              // onClick={handlecheckandsubmit}
             >
               Register
             </Button>

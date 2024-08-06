@@ -21,6 +21,7 @@ function Profile() {
   
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/")
   };
 
 
@@ -50,17 +51,17 @@ function Profile() {
                       <span>User Email : </span>
                       <span className="text-green-700">{auth.user?.email}</span>
                     </div>
+                    {auth.user?.Verifyemail===false?
+                    <div className="flex space-x-3">  
+                      <span>Account: Not Verified ❕</span>
+                    </div>:
+                    <div className="flex space-x-3">  
+                    <span >Account:</span>
+                    <span className="text-green-700"> Verified 🗝️</span>
+                  </div>}
                     <div className="flex space-x-3">
-                      <span>City:</span>
-                      <span className="text-green-700">{auth.user?.addresses[0]?.city}</span>
-                    </div>
-                    <div className="flex space-x-3">
-                      <span>State :</span>
-                      <span className="text-green-700">{auth.user?.addresses[0]?.state}</span>
-                    </div>
-                    <div className="flex space-x-3">
-                      <span>Zip :</span>
-                      <span className="text-green-700">{auth.user?.addresses[0]?.zipCode}</span>
+                      <span>Orders :</span>
+                      <span className="text-green-700">{auth.user?.email}</span>
                     </div>
                   </div>
                   <br></br>

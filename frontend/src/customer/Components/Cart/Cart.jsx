@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCart } from "../../../Redux/Customers/Cart/Action";
+import CartEmptyIcon from "./cartInProblem";
+import "./cart.css"
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -19,7 +21,8 @@ const Cart = () => {
 
   return (
     <div className="">
-      {cart.cartItems.length>0 && <div  className="lg:grid grid-cols-3 lg:px-16 relative">
+      {cart.cartItems.length>0 ? 
+      <div  className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="lg:col-span-2 lg:px-5 bg-white">
         <div className=" space-y-3">
           {cart.cartItems.map((item) => (
@@ -64,8 +67,29 @@ const Cart = () => {
           </Button>
         </div>
       </div>
-      </div>}
-      
+      </div>
+    :<div>
+      <div className='checkmail-container'>
+            <p className='algin-text-center'>Your Cart Is Empty</p>
+            <div className='space-y-5 mt-5 '>
+                <div className='inline-verify'>
+                <CartEmptyIcon/>
+                </div>
+                <div 
+                className="btncentercart">
+                <Button
+                onClick={() => navigate("/")}
+                type="button"
+                id="hoverGreenbtn"
+                variant="contained"
+                   sx={{ padding: ".8rem 2rem", }}
+                >
+                  Continue Shopping
+                  </Button>
+                  </div>
+            </div>
+        </div>
+      </div>}      
     </div>
   );
 };

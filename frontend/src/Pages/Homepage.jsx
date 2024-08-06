@@ -18,13 +18,10 @@ const Homepage = () => {
       
       <div className="space-y-1 ">
         <HomeProductSection data={mens_kurta} section={"Men's Kurta"} path={"mens_kurta"}/>
-
+        <HomeProductSection data={sareePage1} section={"Saree"} path={"saree"}/>
         <Bestseller/>
-
-        
         <HomeProductSection data={mensShoesPage1} section={"Men's Shoes"} path={"shirt"} />
         <HomeProductSection data={lengha_page1} section={"Lengha Choli"} path={"lengha_choli"}/>
-        <HomeProductSection data={sareePage1} section={"Saree"} path={"saree"}/>
         <HomeProductSection data={dressPage1} section={"Tops"} path={"tops"} />
         <HomeProductSection data={gounsPage1} section={"Women's Gouns"} path={"gouns"}/>
       </div>

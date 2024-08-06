@@ -1,23 +1,25 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const otpSchema = new Schema({
+const couponSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
     required: true,
   },
-  otp: {
-    type: Number,
+  couponcode: {
+    type:String,
     required: true,
-
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  expiresAt: {
+    type:Number,
+  }
 });
 
-const Otp = mongoose.model('otp', otpSchema);
+const Coupon = mongoose.model('couponcode', couponSchema);
 
-module.exports = Otp;
+module.exports = Coupon;

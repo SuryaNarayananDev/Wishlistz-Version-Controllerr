@@ -51,6 +51,7 @@ function Checkemail() {
             <div className='space-y-5 mt-5'>
                 <div className='inline-verify'>
                 <AddnotverifyIcon/>
+                <p>Invaild OTP !</p>
                 </div>
                 <p className='algin-text-center'>{auth.user?.email}<br/>
                 Your Account as been Not Verified 🔴</p>

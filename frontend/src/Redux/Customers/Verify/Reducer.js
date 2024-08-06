@@ -3,7 +3,9 @@ import {
     VERIFY_SUCCESS,
     VERIFY_FAILURE,
     Genterate_OTP_SUCCESS,
-    Genterate_OTP_FAILURE
+    Genterate_OTP_FAILURE,
+    VERIFY_FORGOTPASS_SUCCESS,
+    VERIFY_FORGOTPASS_FAILURE
   } from './ActionTyp';
   
   const initialState = {
@@ -27,6 +29,20 @@ import {
           ...state,
           error: action.payload
         };
+
+        
+      case VERIFY_FORGOTPASS_SUCCESS:
+        return {
+          ...state,
+          reviews: [...state.reviews, action.payload],
+          error: ''
+        };
+      case VERIFY_FORGOTPASS_FAILURE:
+        return {
+          ...state,
+          error: action.payload
+        };
+
         case Genterate_OTP_SUCCESS:
           return {
             ...state,
