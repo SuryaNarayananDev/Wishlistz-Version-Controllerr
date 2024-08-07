@@ -87,6 +87,7 @@ async function findProductById(id) {
 
   if (!product) {
     throw new Error("Product not found with id " + id);
+    return product
   }
   return product;
 }

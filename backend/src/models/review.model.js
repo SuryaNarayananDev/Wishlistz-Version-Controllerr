@@ -6,6 +6,10 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  rating:{
+    type:String,
+    required:true
+  },
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'products',

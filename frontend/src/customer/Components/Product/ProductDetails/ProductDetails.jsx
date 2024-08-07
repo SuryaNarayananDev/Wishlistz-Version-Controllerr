@@ -442,7 +442,7 @@ export default function ProductDetails() {
             <Grid container spacing={7}>
               <Grid item xs={6}>
                 <div className="space-y-5">
-                  {review.reviews?.map((item, i) => (
+                  {review.reviews?.map((item) => (
                     <ProductReviewCard item={item} />
                   ))}
                 </div>

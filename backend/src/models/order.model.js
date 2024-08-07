@@ -19,6 +19,10 @@ const orderSchema = new Schema({
   deliveryDate: {
     type: Date,
   },
+  rated: {
+    type: Boolean,
+    default:false
+  },
   shippingAddress: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'addresses',

@@ -7,23 +7,33 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { getUser} from '../../../Redux/Auth/Action'
 import React, { useEffect, useState } from "react";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useDispatch, useSelector } from "react-redux";
-import { createReview } from "../../../Redux/Customers/Review/Action";
+import { createReview,createRating } from "../../../Redux/Customers/Review/Action";
 import { useNavigate, useParams } from "react-router-dom";
 import { findProductById } from "../../../Redux/Customers/Product/Action";
 import CustomerRoutes from "../../../Routers/CustomerRoutes";
 
 const RateProduct = () => {
   const [formData, setFormData] = useState({ title: "", description: "" });
-  const [rating, setRating] = useState();
+  const [ratingdata, setRating] = useState(0);
   const isLargeScreen = useMediaQuery("(min-width:1200px)");
   const dispatch = useDispatch();
   const { customersProduct } = useSelector((store) => store);
   const { productId } = useParams();
   const navigate=useNavigate();
+  const jwt = localStorage.getItem("jwt");
+    const { auth } = useSelector((store) => store);
+    console.log("user of profile",auth);
 
+    useEffect(()=>{
+      if(jwt){
+        dispatch(getUser(jwt))
+      }
+    
+    },[jwt])
   const handleRateProduct = (e, value) => {
     console.log("rating ----- ", value);
     setRating(value);
@@ -38,11 +48,7 @@ const RateProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log(formData);
-    // You can customize this handler to handle the form data as needed
-
-    dispatch(createReview({review:formData.title,productId}))
+    dispatch(createReview({review:formData.title,productId,rating:ratingdata}))
     setFormData({title:"",description:""})
     navigate(`/product/${productId}`)
 
@@ -74,9 +80,9 @@ const RateProduct = () => {
             <p className="opacity-50 font-semibold">
               {customersProduct.product?.brand}
             </p>
-            <p>₹{customersProduct.product?.price}</p>
-            <p>Size: Free</p>
-           {customersProduct.product?.color && <p>Color: {customersProduct.product?.color}</p>}
+            <p>Price : ₹{customersProduct.product?.price}</p>
+            <p>Discount Price : ₹{customersProduct.product?.discountedPrice}</p>
+            <p>Color : {customersProduct.product?.color}</p>
             <div className="flex items-center space-x-3">
               <Rating name="read-only" value={4.6} precision={0.5} readOnly />
 
@@ -105,7 +111,7 @@ const RateProduct = () => {
               </Typography>
               <Rating
                 name="simple-controlled"
-                value={rating}
+                value={ratingdata}
                 onChange={(event, newValue) => {
                   handleRateProduct(event, newValue);
                 }}
@@ -116,24 +122,15 @@ const RateProduct = () => {
               className="space-y-5 p-5 shadow-md border rounded-md"
             >
               <TextField
-                label="Title"
+                label="Discription"
                 variant="outlined"
                 fullWidth
+                multiline
+                rows={4}
                 margin="normal"
                 value={formData.title}
                 onChange={handleChange}
                 name="title"
-              />
-              <TextField
-                label="Description"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                multiline
-                rows={4}
-                value={formData.description}
-                onChange={handleChange}
-                name="description"
               />
               <Button type="submit" variant="contained" color="primary">
                 Submit Review

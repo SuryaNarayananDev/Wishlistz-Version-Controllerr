@@ -20,6 +20,7 @@ export const createReview = (resData) => {
       const response = await api.post('/api/reviews/create', 
         resData);
 
+        
       dispatch({
         type: CREATE_REVIEW_SUCCESS,
         payload: response.data
@@ -56,11 +57,13 @@ export const getAllReviews = (productId) => {
 
 
 export const createRating = (resData) => {
+  console.log("create rating req****");
   return async (dispatch) => {
     try {
-      const response = await api.post('/api/ratings/create', 
+      const response = await api.post('/api/ratings/createrating', 
         resData);
-
+        
+        console.log("created ratings #####");
       dispatch({
         type: CREATE_RATING_SUCCESS,
         payload: response.data

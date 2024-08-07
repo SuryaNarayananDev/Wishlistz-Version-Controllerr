@@ -97,7 +97,7 @@ const OrderDetails = () => {
                 </div>
               </div>
             </Grid>
-            {order.order?.orderStatus==="DELIVERED" && 
+            {order.order?.orderStatus==="DELIVERED" && order.order?.rated===false? 
             <Grid item>
               {
                 <Box
@@ -113,7 +113,7 @@ const OrderDetails = () => {
                 </Box>
               }
             </Grid>
-              }
+              :""}
           </Grid>
         ))}
       </Grid>

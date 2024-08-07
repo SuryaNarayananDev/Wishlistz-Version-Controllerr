@@ -233,19 +233,32 @@ export default function Navigation() {
                     ))}
                   </Tab.Panels>
                 </Tab.Group>
+                
+                {/* mobile menu options */}
+                <hr/>
+                <p 
+                onClick={()=>navigate("/profile")}
+                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3">
+                Profile
+                </p>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        {page.name}
-                      </a>
-                    </div>
-                  ))}
-                </div>
+                <p 
+                onClick={()=>navigate("/account/order")}
+                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                My Orders
+                </p>
+
+                <p 
+                onClick={()=>navigate("/wish")}
+                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                My WishLists
+                </p>
+
+                <p 
+                onClick={()=>navigate("/cart")}
+                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                Cart
+                </p>
 
                 <div className="space-y-8 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
@@ -292,9 +305,22 @@ export default function Navigation() {
                     <span className="ml-3 block text-base font-medium text-gray-900">
                       India
                     </span>
-                    <span className="sr-only">, change currency</span>
                   </a>
                 </div>
+
+                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                  {navigation.pages.map((page) => (
+                    <div key={page.name} className="flow-root">
+                      <a
+                        href={page.href}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        {page.name}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+
               </Dialog.Panel>
             </Transition.Child>
           </div>
