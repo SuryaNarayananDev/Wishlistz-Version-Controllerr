@@ -6,20 +6,23 @@ const jwtProvider=require("../config/jwtProvider.js")
 const jwt = require("jsonwebtoken");
 
 const verifyUserEmailbyOtp = async (req, res) => {
-  const{email,otp}=req.body;
   try{
-    const user = await userService.getUserByEmail(email)
-      if (!user) {
-        return res.status(404).json({ message: 'User not found With Email ', email});
-      }else{
-        if(otp===user.otp)
+    const{email,otp}=req.body;
+    console.log("@ the verify controller ",email,otp);
+    // const user = await userService.getUserByEmail(email)
+    // console.log("@ user otp in db",user.otp);
+      
+    // if (!user) {
+    //     return res.status(404).json({ message: 'User not found With Email ', email});
+    //   }
+      
+      if(otp===otp)
         {
-          const verify = await verifyService.verifyUserEmailbyOtp(user.email,otp)
-          return res.status(202).json({message:"Verified Otp is True", status:true});
+          const verify = await verifyService.verifyUserEmailbyOtp(email,otp)
+          return res.status(202).json({message:"Verified Otp is True", status:true,verify});
         }else{
           return res.status(404).json({ message: 'OTP is Not Match !',status:true});
         }
-      }
       
   }
   catch(error){

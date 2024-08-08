@@ -51,14 +51,9 @@ function Profile() {
                       <span>User Email : </span>
                       <span className="text-green-700">{auth.user?.email}</span>
                     </div>
-                    {auth.user?.Verifyemail===false?
                     <div className="flex space-x-3">  
-                      <span>Account: Not Verified ❕</span>
-                    </div>:
-                    <div className="flex space-x-3">  
-                    <span >Account:</span>
-                    <span className="text-green-700"> Verified 🗝️</span>
-                  </div>}
+                      <span>Account:{auth?.user?.Verifyemail===true?<span className="text-green-700"> Verified 🗝️</span>:<span> Not Verified ❕</span>}</span>
+                    </div>
                     <div className="flex space-x-3">
                       <span>Orders :</span>
                       <span className="text-green-700">{auth.user?.email}</span>
@@ -83,6 +78,17 @@ function Profile() {
             Logout{" "}
           </Button>
         </div>
+        {auth?.user===null?"":
+        <div>
+        {auth?.user?.Verifyemail===true?"":
+        <div className="flex text-sm  lg:text-base mt-5 lg:mt-0">
+          <Button  variant="text"
+          onClick={()=>navigate("/verify-email")}
+          >
+
+            Verify Email{" "}
+          </Button>
+        </div>}</div>}
       </div></div>
         </div>
       </Box>

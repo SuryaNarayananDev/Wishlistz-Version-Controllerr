@@ -56,6 +56,7 @@ async function createProduct(reqData) {
     sizes: reqData.size,
     quantity: reqData.quantity,
     category: thirdLevel._id,
+    weight:reqData.weight
   });
 
   const savedProduct = await product.save();

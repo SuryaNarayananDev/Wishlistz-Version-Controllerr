@@ -14,7 +14,9 @@ async function sendEmail(content) {
   const{emailto,
     emailsub,
     emailcontent}=content
+
   // Define email options
+  
   const mailOptions = {
     from: EMAIL,
     to:emailto,

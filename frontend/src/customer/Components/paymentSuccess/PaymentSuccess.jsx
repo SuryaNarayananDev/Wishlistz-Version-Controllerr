@@ -46,6 +46,7 @@ const PaymentSuccess = () => {
   setTimeout(() => {
     setconfetti(true)
 }, 7000);
+console.log(order.order?.orderItems);
 
   return (
     <div>
@@ -65,6 +66,7 @@ const PaymentSuccess = () => {
             Congratulation Your Order Get Placed
           </Alert>
         </div>
+
 
         <OrderTraker activeStep={1} />
 
@@ -90,10 +92,10 @@ const PaymentSuccess = () => {
                 <div className="ml-5 space-y-2">
                   <p className="">{item.product.title}</p>
                   <p className="opacity-50 text-xs font-semibold space-x-5">
-                    <span>Color: pink</span> <span>Size: {item.size}</span>
+                    <span>Color : {item.product.color}</span> <span>Size : {item.size}</span>
                   </p>
-                  <p>Seller: {item.product.brand}</p>
-                  <p>₹{item.price}</p>
+                  <p>Brand : {item.product.brand}</p>
+                  <p className="font-semibold">₹ {item.discountedPrice}</p>
                 </div>
               </Grid>
               <Grid item>

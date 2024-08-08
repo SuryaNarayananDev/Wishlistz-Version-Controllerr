@@ -48,6 +48,7 @@ const CreateProductForm = () => {
     secondLavelCategory: "",
     thirdLavelCategory: "",
     description: "",
+    weight:0
   });
 const dispatch=useDispatch();
 const jwt=localStorage.getItem("jwt")
@@ -309,6 +310,16 @@ const jwt=localStorage.getItem("jwt")
               value={productData.description}
             />
           </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Weight In Gram"
+              name="weight"
+              value={productData.weight}
+              onChange={handleChange}
+              
+            />
+          </Grid>
           {productData.size.map((size, index) => (
             <Grid container item spacing={3} >
               <Grid item xs={12} sm={6}>
@@ -318,6 +329,7 @@ const jwt=localStorage.getItem("jwt")
                   value={size.name}
                   onChange={(event) => handleSizeChange(event, index)}
                   required
+                  disabled
                   fullWidth
                 />
               </Grid>

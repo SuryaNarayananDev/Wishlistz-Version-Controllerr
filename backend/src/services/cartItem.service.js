@@ -8,7 +8,7 @@ async function createCartItem(cartItemData) {
   cartItem.quantity = 1;
   cartItem.price = cartItem.product.price * cartItem.quantity;
   cartItem.discountedPrice = cartItem.product.discountedPrice * cartItem.quantity;
-
+  cartItem.weight= cartItem.product.weight*cartItem.quantity;
   const createdCartItem = await cartItem.save();
   return createdCartItem;
 }
@@ -33,6 +33,7 @@ async function updateCartItem(userId, cartItemId, cartItemData) {
     item.quantity = cartItemData.quantity;
     item.price = item.quantity * item.product.price;
     item.discountedPrice = item.quantity * item.product.discountedPrice;
+    item.weight = item.quantity * item.product.weight;
     ;
     const updatedCartItem = await item.save();
     return updatedCartItem;

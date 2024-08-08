@@ -23,16 +23,35 @@ async function findUserCart(userId) {
   let totalPrice = 0;
   let totalDiscountedPrice = 0;
   let totalItem = 0;
-
+  let totalweight= 0;
+  let deliverycost = 0
   for (const cartItem of cart.cartItems) {
     totalPrice += cartItem.price;
     totalDiscountedPrice += cartItem.discountedPrice;
     totalItem += cartItem.quantity;
+    totalweight += cartItem.weight;
   }
-
+  if(totalDiscountedPrice>1499)
+  {
+    cart.totalDeliverycharge=0
+  }
+  else{
+    if (totalweight<501) {
+      deliverycost=45
+    }else if (totalweight<1001) {
+      deliverycost=65
+    }else if (totalweight<2001) {
+      deliverycost=120
+    }else if (totalweight<3001) {
+      deliverycost=150
+    }else{
+      deliverycost=220
+    }
+  }
+  cart.totalDeliverycharge = deliverycost
   cart.totalPrice = totalPrice;
   cart.totalItem = totalItem;
-  cart.totalDiscountedPrice = totalDiscountedPrice;
+  cart.totalDiscountedPrice = totalDiscountedPrice + deliverycost;
   cart.discounte = totalPrice - totalDiscountedPrice;
 
   // const updatedCart = await cart.save();
@@ -58,6 +77,7 @@ async function addCartItem(userId, req) {
       userId,
       price: product.price,
       size: req.size,
+      weight:product.weight,
       discountedPrice:product.discountedPrice
     });
 

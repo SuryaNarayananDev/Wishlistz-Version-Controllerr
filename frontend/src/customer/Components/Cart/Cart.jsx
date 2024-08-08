@@ -19,6 +19,7 @@ const Cart = () => {
     dispatch(getCart(jwt));
   }, [jwt]);
 
+
   return (
     <div className="">
       {cart.cartItems.length>0 ? 
@@ -48,7 +49,7 @@ const Cart = () => {
             </div>
             <div className="flex justify-between">
               <span>Delivery Charges</span>
-              <span className="text-green-700">Free</span>
+              <span className="text-green-700">₹{cart?.cart?.totalDeliverycharge}</span>
             </div>
             <hr />
             <div className="flex justify-between font-bold text-lg">

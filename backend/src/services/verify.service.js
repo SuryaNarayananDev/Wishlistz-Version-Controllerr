@@ -3,7 +3,6 @@ const UserModel = require("../models/user.model")
 const userservice = require("./user.service")
 const emailService = require("../config/gmail")
 const bcrypt = require('bcrypt');
-const AuthController = require("../controllers/auth.controller")
 
 const verifyUserEmailbyOtp = async (email, otp) => {
   const user = await userservice.getUserByEmail(email)
@@ -24,7 +23,7 @@ const verifyUserEmailbyOtp = async (email, otp) => {
 }
 
 const GenerateOtpService = async (email) => {
-  console.log("reached at verify service");
+  console.log("reached at verify service",email);
 
   const otp = Math.floor(1000 + Math.random() * 9000);
   const user = await userservice.getUserByEmail(email)

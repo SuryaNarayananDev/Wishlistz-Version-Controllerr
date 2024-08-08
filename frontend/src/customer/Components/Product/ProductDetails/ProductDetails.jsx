@@ -152,6 +152,8 @@ export default function ProductDetails() {
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
     setWhatsappLink(`http://localhost:3000/product/${productId}`)
+    console.log("@ cart weight",product.weight);
+    
   }, [productId]);
 
   // console.log(subImageOfProduct+"images of product");
@@ -440,7 +442,7 @@ export default function ProductDetails() {
 
           <div className="border p-5">
             <Grid container spacing={7}>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <div className="space-y-5">
                   {review.reviews?.map((item) => (
                     <ProductReviewCard item={item} />
