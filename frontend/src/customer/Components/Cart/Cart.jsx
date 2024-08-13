@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -14,11 +14,15 @@ const Cart = () => {
   const jwt = localStorage.getItem("jwt");
   const {cart}=useSelector(store=>store);
   console.log("cart ",cart)
+  const[delivercost,setdelivercost]=useState(0)
 
   useEffect(() => {
     dispatch(getCart(jwt));
   }, [jwt]);
 
+  if (cart?.cart?.totalDeliverycharge===0) {
+    
+  }
 
   return (
     <div className="">
@@ -44,12 +48,20 @@ const Cart = () => {
               <span>₹{cart.cart.totalPrice}</span>
             </div>
             <div className="flex justify-between">
-              <span>Discount</span>
-              <span className="text-green-700">-₹{cart.cart?.discounte}</span>
+              <span>Tax</span>
+              <span className="text-green-700">-18 %</span>
             </div>
             <div className="flex justify-between">
               <span>Delivery Charges</span>
+              {cart?.cart?.totalDeliverycharge===0?
+              <span className="text-green-700">₹ Free</span>
+              :
               <span className="text-green-700">₹{cart?.cart?.totalDeliverycharge}</span>
+              }
+            </div>
+            <div className="flex justify-between">
+              <span>Discount</span>
+              <span className="text-green-700">-₹{cart.cart?.discounte}</span>
             </div>
             <hr />
             <div className="flex justify-between font-bold text-lg">
@@ -67,6 +79,8 @@ const Cart = () => {
             Check Out
           </Button>
         </div>
+        
+      <p className="algin-text-center mt-2 font-bold pb-4 text-blue-700">Get free delivery on orders over 1499₹</p>
       </div>
       </div>
     :<div>

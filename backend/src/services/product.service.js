@@ -56,7 +56,8 @@ async function createProduct(reqData) {
     sizes: reqData.size,
     quantity: reqData.quantity,
     category: thirdLevel._id,
-    weight:reqData.weight
+    weight:reqData.weight,
+    colortag:reqData.colortag
   });
 
   const savedProduct = await product.save();
@@ -92,6 +93,8 @@ async function findProductById(id) {
   }
   return product;
 }
+
+//search product by name catogry color  
 
 // Get all products with filtering and pagination
 async function getAllProducts(reqQuery) {

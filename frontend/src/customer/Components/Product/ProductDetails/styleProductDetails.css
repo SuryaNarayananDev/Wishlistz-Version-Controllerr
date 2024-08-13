@@ -5,6 +5,12 @@
 #hoverOrangebtn{
     background-color: #da6e10;
 }
+/* #hoverYellowbtn{
+    background-color: #e0bc09;
+}
+#hoverYellowbtn:hover{
+    background-color: #d7900c;
+} */
 #hoverGreenbtn{
     background-color: #25b525;
     color: #fff;
@@ -65,4 +71,8 @@
 .algin-text-center{
     align-content: center;
     text-align: center;
+}
+.color-tag-container{
+    height:35px;
+    width: 35px;
 }

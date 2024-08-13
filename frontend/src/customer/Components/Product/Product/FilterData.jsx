@@ -15,6 +15,7 @@ export const filters = [
     name: "Color",
     options: [
       { value: "white", label: "White" },
+      {value:"red",label:"Red"},
       { value: "beige", label: "Beige" },
       { value: "blue", label: "Blue" },
       { value: "brown", label: "Brown" },
@@ -31,6 +32,8 @@ export const filters = [
       { value: "S", label: "S" },
       { value: "M", label: "M" },
       { value: "L", label: "L" },
+      { value: "XL", label: "XL" },
+      { value: "Free Size", label: "Free Size" },
     ],
   },
   

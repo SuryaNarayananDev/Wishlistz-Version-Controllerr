@@ -22,6 +22,7 @@ import Profile from "../customer/Components/Profile/Profile";
 import ValidateEmail from "../customer/Components/Auth/validateEmail"
 import CheckEmail from "../customer/Components/Auth/checkemail";
 import ForgotPassword from "../customer/Components/Auth/forgotPassword";
+import Photorequest from "../customer/Components/photrequest/photorequest";
 const CustomerRoutes = () => {
     const location = useLocation();
     
@@ -58,6 +59,7 @@ const CustomerRoutes = () => {
         <Route path="/auth/email-status" element={<CheckEmail />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
+        <Route path="/account/photorequest" element={<Photorequest />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
       <Footer/>

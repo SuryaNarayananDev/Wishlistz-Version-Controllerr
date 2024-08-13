@@ -8,20 +8,23 @@ import {
 } from "@heroicons/react/24/outline";
 import "./stylenavbar.css"
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Avatar, Button, Menu, MenuItem } from "@mui/material";
+import { Avatar, Button, Menu, MenuItem, TextField } from "@mui/material";
 import { navigation } from "../../../config/navigationMenu";
 import AuthModal from "../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { deepPurple } from "@mui/material/colors";
 import { getUser, logout } from "../../../Redux/Auth/Action";
 import { getCart } from "../../../Redux/Customers/Cart/Action";
-
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import SearchBar from "./searchBar";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const [searchbar, setSearchbar] = useState(false);
+  const[searchquery,setsearchquery]=useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { auth, cart } = useSelector((store) => store);
@@ -53,6 +56,12 @@ export default function Navigation() {
 
   };
 
+  const handlequery=(e)=>{
+    setsearchquery(e.target.value)
+    console.log(searchquery);
+    
+  }
+
   const handleProfileMenu = () => {
     handleCloseUserMenu();
     navigate("/profile")
@@ -77,10 +86,10 @@ export default function Navigation() {
     }
   }, [auth.user]);
 
-  const handlecartclick=()=>{
-    if(auth.user?.Verifyemail===false){
-        navigate("/verify-email")
-    }else{
+  const handlecartclick = () => {
+    if (auth.user?.Verifyemail === false) {
+      navigate("/verify-email")
+    } else {
       navigate("/cart")
     }
   }
@@ -233,31 +242,31 @@ export default function Navigation() {
                     ))}
                   </Tab.Panels>
                 </Tab.Group>
-                
+
                 {/* mobile menu options */}
-                <hr/>
-                <p 
-                onClick={()=>navigate("/profile")}
-                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3">
-                Profile
+                <hr />
+                <p
+                  onClick={() => navigate("/profile")}
+                  className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3">
+                  Profile
                 </p>
 
-                <p 
-                onClick={()=>navigate("/account/order")}
-                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
-                My Orders
+                <p
+                  onClick={() => navigate("/account/order")}
+                  className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                  My Orders
                 </p>
 
-                <p 
-                onClick={()=>navigate("/wish")}
-                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
-                My WishLists
+                <p
+                  onClick={() => navigate("/wish")}
+                  className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                  My WishLists
                 </p>
 
-                <p 
-                onClick={()=>navigate("/cart")}
-                className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
-                Cart
+                <p
+                  onClick={() => navigate("/cart")}
+                  className="text-xl font-medium text-gray-700 hover:text-gray-800 ml-3 mt-3">
+                  Cart
                 </p>
 
                 <div className="space-y-8 border-t border-gray-200 px-4 py-6">
@@ -329,24 +338,24 @@ export default function Navigation() {
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over 3599 Rs
+          Get free delivery on orders over 1499 Rs
         </p>
 
         <nav aria-label="Top" className="mx-auto">
           <div className="border-b border-gray-200">
 
             <div className="flex h-20 lg:h-16 items-center px-2 lg:px-12 ">
-              <button
+              {searchbar === false && <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
+              </button>}
 
               {/* Logo */}
-              <div className="ml-1 flex lg:ml-0 ">
+              {/* {searchbar === false && <div className="ml-1 flex lg:ml-0 ">
                 <Link to="/">
                   <span className="sr-only">WishListz</span>
                   <img
@@ -355,14 +364,16 @@ export default function Navigation() {
                     className="h-8 w-8 mr-2"
                   />
                 </Link>
-              </div>
-              <Link to="/" className="flex items-center ml-8">
+              </div>} */}
+              {/* center logo img */}
+
+              {searchbar === false && <Link to="/" className="flex items-center ml-2">
                 <img
                   src="https://i.imgur.com/CeDLvPB.png"
                   alt="wistlistz"
                   className="h-8 w-15 mr-2 ml-2 mt-3"
                 />
-              </Link>
+              </Link>}
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
@@ -497,8 +508,55 @@ export default function Navigation() {
                   ))}
                 </div>
               </Popover.Group>
-
+                  {/* Menu section lg  */}
               <div className="ml-auto flex items-center">
+                
+                {/* Search */}
+                <div className="flex lg:ml-5">
+                  {/* <p className="p-2 text-gray-400 hover:text-gray-500"> */}
+                    <span className="sr-only">Search</span>
+                    {searchbar === false && <MagnifyingGlassIcon
+                      className="h-6 w-6"
+                      aria-hidden="true"
+                      onClick={()=>setSearchbar(true)}
+                    />}
+                  </div>
+                  <div className="ml-3"> 
+                    {searchbar===true&&<SearchBar/>}
+                </div>
+
+                {/* Cart */}
+                <div className="ml-4 flow-root lg:ml-3">
+                {auth.user === false  ? "":
+                    <Button
+                      // onClick={handlecartclick}
+                      className="group -m-2 flex items-center p-2"
+                    >
+                      <AddPhotoAlternateOutlinedIcon
+                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                    </Button>
+                    }
+
+                  {auth.user === null ? "" :
+                    <Button
+                      onClick={handlecartclick}
+                      className="group -m-2 flex items-center p-2"
+                    >
+                      <ShoppingBagIcon
+                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {cart.cart?.totalItem}
+                      </span>
+                      <span className="sr-only">Cart</span>
+                    </Button>}
+                </div>
+                {/* add Product Request */}
+
+                      {/* menu lg */}
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {auth.user ? (
                     <div>
@@ -517,15 +575,7 @@ export default function Navigation() {
                       >
                         {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
-                      {/* <Button
-                        id="basic-button"
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        onClick={handleUserClick}
-                      >
-                        Dashboard
-                      </Button> */}
+                  
                       <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -558,36 +608,7 @@ export default function Navigation() {
                       Signin
                     </Button>
                   )}
-                </div>
-
-                {/* Search */}
-                <div className="flex lg:ml-5">
-                  <p className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </p>
-                </div>
-
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-3">
-                  {auth.user === null ? "" :
-                    <Button
-                      onClick={handlecartclick}
-                      className="group -m-2 flex items-center p-2"
-                    >
-                      <ShoppingBagIcon
-                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                        {cart.cart?.totalItem}
-                      </span>
-                      <span className="sr-only">Cart</span>
-                    </Button>}
-                </div>
+                </div >
               </div>
             </div>
           </div>

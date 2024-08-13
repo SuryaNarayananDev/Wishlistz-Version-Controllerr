@@ -156,7 +156,7 @@ export default function ProductDetails() {
     
   }, [productId]);
 
-  // console.log(subImageOfProduct+"images of product");
+  console.log(customersProduct?.product?.colortag,"tag");
   const isStock = customersProduct.product?.quantity;
 
   return (
@@ -228,22 +228,37 @@ export default function ProductDetails() {
                 </div>
               ))}
             </div>
-            <div>
+            <div className='flex'>
+              {WhatsappBtn===false?
+              <div className='flex'>
               <Button
-                id="hoverGreenbtn"
+                id="hoverYellowbtn"
                 variant="contained"
                 type="button"
                 onClick={handleWhatsapp}
 
                 sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
               >
-                Whatsapp
-                <AddWhatsappIcon />
+                Show live
               </Button>
+
+              <Button
+                id="hoverYellowbtn"
+                variant="contained"
+                type="button"
+                onClick={handleWhatsapp}
+
+                sx={{ padding: ".8rem 2rem", marginTop: "2rem",marginLeft:10 }}
+              >
+                Customize
+              </Button>
+              </div>
+              :""}
               {/* Create Whatsapp HyperLinks */}
               {WhatsappBtn === true ?
                 <div>
                   <div className="whatsapp-container">
+                  <p onClick={()=>setWhatsappbtn(false)}>Close</p>
                     <p className="algin-text-center">For More Details</p>
                     <div className='space-y-3'>
                       <p className='wa-font-15px'>Product: {productId}</p>
@@ -254,7 +269,7 @@ export default function ProductDetails() {
                       <hr />
                     </div>
                     <div className='algin-center-btn'>
-                      <Button id="hoverGreenbtn" href="https://wa.me/9446976017">Whatsapp Chat<AddWhatsappIcon /></Button>
+                      <Button id="hoverGreenbtn" href="https://wa.me/9446976017">Whatsapp<AddWhatsappIcon /></Button>
                     </div>
                   </div>
                 </div> : ""}
@@ -304,6 +319,18 @@ export default function ProductDetails() {
                     {reviews.totalCount} reviews
                   </p>
                 </div>
+              </div>
+                {/* Color verify container */}
+              <div className="mt-10">
+              <h3 className="text-sm font-medium text-gray-900">Color Guide</h3>
+                  <div className="flex items-center">
+                    <Button>
+                    <div className='color-tag-container' style={{background:customersProduct?.product?.colortag}} ></div>
+                    </Button>
+                    <Button>
+                        
+                    </Button>
+                  </div>
               </div>
 
               <form className="mt-10" onSubmit={handleAddtoCart}>

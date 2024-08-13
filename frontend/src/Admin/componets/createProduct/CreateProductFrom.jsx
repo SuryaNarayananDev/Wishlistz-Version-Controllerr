@@ -48,7 +48,8 @@ const CreateProductForm = () => {
     secondLavelCategory: "",
     thirdLavelCategory: "",
     description: "",
-    weight:0
+    weight:0,
+    colortag:""
   });
 const dispatch=useDispatch();
 const jwt=localStorage.getItem("jwt")
@@ -316,6 +317,16 @@ const jwt=localStorage.getItem("jwt")
               label="Weight In Gram"
               name="weight"
               value={productData.weight}
+              onChange={handleChange}
+              
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Color in HEXA"
+              name="colortag"
+              value={productData.colortag}
               onChange={handleChange}
               
             />
