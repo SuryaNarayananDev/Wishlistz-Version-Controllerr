@@ -20,8 +20,11 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-
+// import {BasePopup } from '@mui/base/BasePopup';
+// import { styled } from '@mui/system';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import { Popper } from '@mui/base';
+import { styled, css } from '@mui/system';
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -70,6 +73,9 @@ const product = {
   details:
     '.',
 };
+
+
+
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
@@ -83,17 +89,28 @@ export default function ProductDetails() {
   const [indicate, setindicate] = useState(false)
   const [WhatsappBtn, setWhatsappbtn] = useState(false)
   const [createWhatsappLink, setWhatsappLink] = useState("")
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popper' : undefined;
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { customersProduct, review, auth } = useSelector((store) => store);
   const { productId } = useParams();
   const jwt = localStorage.getItem("jwt");
 
-  if (auth.user?.role==="CUSTOMER") {
+  if (auth.user?.role === "CUSTOMER") {
     console.log("user exits")
-  }else if (auth.user===null) {
+  } else if (auth.user === null) {
     console.log("user are noy fount");
-  }else{
+  } else {
     console.log("somethig is missing");
   }
 
@@ -115,29 +132,32 @@ export default function ProductDetails() {
   const handleAddtoCart = () => {
     if (auth.user === null) {
       alert("Please Login to CheckOut")
-    }else if (auth.user?.role==="CUSTOMER") {
+    } else if (auth.user?.role === "CUSTOMER") {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize };
         dispatch(addItemToCart({ data, jwt }));
-        if(auth.user?.Verifyemail===true)
-        {
+        if (auth.user?.Verifyemail === true) {
           navigate("/cart")
         }
-        else{
+        else {
           navigate("/verify-email")
         }
       } else {
         setindicate(true)
       }
     }
-    
+
 
   };
 
+  const [maxcolorset, setmaxcolorset] = useState(false)
+  console.log("color", maxcolorset);
+
+
   const handleAddtoWish = () => {
-    if (auth.user===null) {
+    if (auth.user === null) {
       alert("Please Login to CheckOut")
-    }else if (auth.user?.role==="CUSTOMER") {
+    } else if (auth.user?.role === "CUSTOMER") {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize.name };
         dispatch(addItemToWish({ data, jwt }));
@@ -152,19 +172,31 @@ export default function ProductDetails() {
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
     setWhatsappLink(`http://localhost:3000/product/${productId}`)
-    console.log("@ cart weight",product.weight);
-    
+    console.log("@ cart weight", product.weight);
+
   }, [productId]);
 
-  console.log(customersProduct?.product?.colortag,"tag");
+  console.log(customersProduct?.product?.colortag, "tag");
   const isStock = customersProduct.product?.quantity;
 
   return (
-
     <div className="bg-white lg:px-20">
-      <div className="Pop-Show">
+      {/* color board popup window */}
+      {maxcolorset === true ?
+        <div className='ml-8 lg:px-0 colortag-page-outline' style={{ backgroundColor: customersProduct?.product?.colortag }}>
+          <div className='close-btn-center'>
+            <Button onClick={() => setmaxcolorset(false)}
+              id="hoverYellowbtn"
+              variant="contained"
+              type="button"
+              sx={{ padding: ".8rem 2rem" }}>
+              X
+            </Button>
+            <p className='algin-text-center'>Match With Perfect Colour</p>
+          </div>
+        </div> : ""}
 
-      </div>
+
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol
@@ -229,43 +261,43 @@ export default function ProductDetails() {
               ))}
             </div>
             <div className='flex'>
-              {WhatsappBtn===false?
-              <div className='flex'>
-              <Button
-                id="hoverYellowbtn"
-                variant="contained"
-                type="button"
-                onClick={handleWhatsapp}
+              {WhatsappBtn === false ?
+                <div className='flex'>
+                  <Button
+                    id="hoverYellowbtn"
+                    variant="contained"
+                    type="button"
+                    onClick={handleWhatsapp}
 
-                sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
-              >
-                Show live
-              </Button>
+                    sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+                  >
+                    Show live
+                  </Button>
 
-              <Button
-                id="hoverYellowbtn"
-                variant="contained"
-                type="button"
-                onClick={handleWhatsapp}
+                  <Button
+                    id="hoverYellowbtn"
+                    variant="contained"
+                    type="button"
+                    onClick={handleWhatsapp}
 
-                sx={{ padding: ".8rem 2rem", marginTop: "2rem",marginLeft:10 }}
-              >
-                Customize
-              </Button>
-              </div>
-              :""}
+                    sx={{ padding: ".8rem 2rem", marginTop: "2rem", marginLeft: 10 }}
+                  >
+                    Customize
+                  </Button>
+                </div>
+                : ""}
               {/* Create Whatsapp HyperLinks */}
               {WhatsappBtn === true ?
                 <div>
                   <div className="whatsapp-container">
-                  <p onClick={()=>setWhatsappbtn(false)}>Close</p>
+                    <p onClick={() => setWhatsappbtn(false)}>Close</p>
                     <p className="algin-text-center">For More Details</p>
                     <div className='space-y-3'>
                       <p className='wa-font-15px'>Product: {productId}</p>
                       <CopyToClipboard text={createWhatsappLink}>
                         <button className='wa-btn'>Copy</button>
                       </CopyToClipboard>
-                      <p>Click Copy button and click below button</p>
+                      <p>Click Copy button and click below </p>
                       <hr />
                     </div>
                     <div className='algin-center-btn'>
@@ -320,17 +352,23 @@ export default function ProductDetails() {
                   </p>
                 </div>
               </div>
-                {/* Color verify container */}
+              {/* Color verify container */}
               <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Color Guide</h3>
-                  <div className="flex items-center">
-                    <Button>
-                    <div className='color-tag-container' style={{background:customersProduct?.product?.colortag}} ></div>
-                    </Button>
-                    <Button>
-                        
-                    </Button>
+                <h3 className="text-sm font-medium text-gray-900">Color Guide</h3>
+                <div className="flex items-center">
+                  <Button onClick={() => setmaxcolorset(true)}>
+                    <div className='color-tag-container' style={{ background: customersProduct?.product?.colortag }} ></div>
+                  </Button>
+                  <div>
+                    <Button aria-describedby={id} type="button" onClick={handleClick}>
+                  <HelpOutlineOutlinedIcon/>
+                  </Button>
+                    
+                    <Popper id={id} open={open} anchorEl={anchorEl}>
+                      <StyledPopperDiv>Colour Guide is New feature to Identify Perfect colour of Product *(LED Display Perfer)  .</StyledPopperDiv>
+                    </Popper>
                   </div>
+                </div>
               </div>
 
               <form className="mt-10" onSubmit={handleAddtoCart}>
@@ -427,7 +465,9 @@ export default function ProductDetails() {
               <div>
                 <h3 className="sr-only">Description</h3>
 
-                <div className="space-y-6">
+                <div className="space-y-6 mt-3">
+                  <h2 className="text-sm font-medium text-gray-900">Details</h2>
+
                   <p className="text-base text-gray-900">
                     {customersProduct.product?.description}
                   </p>
@@ -451,7 +491,6 @@ export default function ProductDetails() {
               </div>
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{product.details}</p>
@@ -636,4 +675,89 @@ export default function ProductDetails() {
       </div>
     </div>
   );
-}
+
+}const blue = {
+  50: '#F0F7FF',
+  100: '#C2E0FF',
+  200: '#99CCF3',
+  300: '#66B2FF',
+  400: '#3399FF',
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0059B2',
+  800: '#004C99',
+  900: '#003A75',
+};
+
+const grey = {
+  50: '#F3F6F9',
+  100: '#E5EAF2',
+  200: '#DAE2ED',
+  300: '#C7D0DD',
+  400: '#B0B8C4',
+  500: '#9DA8B7',
+  600: '#6B7A90',
+  700: '#434D5B',
+  800: '#303740',
+  900: '#1C2025',
+};
+
+const TriggerButton = styled('button')(
+  ({ theme }) => `
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  background-color: ${blue[500]};
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: 1px solid ${blue[500]};
+  box-shadow: 0 2px 1px ${
+    theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(45, 45, 60, 0.2)'
+  }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
+
+  &:hover {
+    background-color: ${blue[600]};
+  }
+
+  &:active {
+    background-color: ${blue[700]};
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
+    outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+    &:hover {
+      background-color: ${blue[500]};
+    }
+  }
+`,
+);
+
+const StyledPopperDiv = styled('div')(
+  ({ theme }) => css`
+    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+    border-radius: 8px;
+    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+    box-shadow: ${theme.palette.mode === 'dark'
+      ? `0px 4px 8px rgb(0 0 0 / 0.7)`
+      : `0px 4px 8px rgb(0 0 0 / 0.1)`};
+    padding: 0.75rem;
+    color: ${theme.palette.mode === 'dark' ? '#222222' : '#222222'};
+    font-size: 0.875rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    opacity: 1;
+    margin: 0.25rem 0;
+  `,
+);

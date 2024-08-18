@@ -17,10 +17,13 @@ const Order = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const {order}=useSelector(store=>store);
+
   
   useEffect(() => {
     dispatch(getOrderHistory({ jwt }));
   }, [jwt]);
+
+
 
   console.log("users orders ",order.orders)
   return (
@@ -29,7 +32,7 @@ const Order = () => {
         <Grid item xs={12} lg={9}>
           <Box className="space-y-7 ">
             {order.orders?.length>0 && order.orders?.map((order )=> {
-              return order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
+              return order?.orderStatus!="PENDING"&&order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
             })}
           </Box>
         </Grid>

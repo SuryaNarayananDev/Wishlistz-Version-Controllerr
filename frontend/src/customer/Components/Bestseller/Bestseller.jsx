@@ -1,8 +1,15 @@
 import React from 'react'
 import { bestsellerpro } from "../../../Data/Bestseller/bestseller";
 import "./bestseller.css"
+import { useNavigate } from "react-router-dom";
 import { Hidden } from '@mui/material';
 function Bestseller() {
+  const navigate = useNavigate();
+
+
+  const handleclickproduct=(proId)=>{
+    navigate(`/product/${proId}`)
+  }
   return (
     <div>
       <div className="lg:grid grid-cols-3 lg:px-9 relative">
@@ -49,8 +56,8 @@ function Bestseller() {
               <p className='bestsell-treandings'>Trending Looks Combo</p>
               <div className="p-5 shadow-lg border rounded-md mt-3">
                 {/* Top */}
-                <div className="flex items-center">
-                  <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
+                <div onClick={()=>handleclickproduct(bestsellerpro.id)} className="flex items-center">
+                  <div  className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
                     <img
                       className="w-full h-full object-cover object-top"
                       src={bestsellerpro.imageUrl}
@@ -72,7 +79,7 @@ function Bestseller() {
                   </div>
                 </div>
                 {/* Meddle */}
-                <div className="flex items-center mt-6">
+                <div onClick={()=>handleclickproduct(bestsellerpro.id)} className="flex items-center mt-6">
                   <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
                     <img
                       className="w-full h-full object-cover object-top"
@@ -95,7 +102,7 @@ function Bestseller() {
                   </div>
                 </div>
                 {/* bottom */}
-                <div className="flex items-center mt-6">
+                <div onClick={()=>handleclickproduct(bestsellerpro.id)} className="flex items-center mt-6">
                   <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
                     <img
                       className="w-full h-full object-cover object-top"

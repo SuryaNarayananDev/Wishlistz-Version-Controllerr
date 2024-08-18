@@ -1,14 +1,28 @@
 import { Box, Grid, Typography } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import AdjustIcon from "@mui/icons-material/Adjust";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 
 const OrderCard = ({ item, order }) => {
   const navigate = useNavigate();
   console.log("items ", item);
+  const[productstate,setproductstate]=useState(false)
+
+  useEffect(() => {
+    console.log(item,"item of orders");
+    if (item.orderStatus==="PENDING") {
+      setproductstate(true)
+      
+      
+    }else{
+      setproductstate(false)
+    }
+});
   return (
+    <div>
+    {productstate===false?
     <Box className="p-5 shadow-lg hover:shadow-2xl border ">
       <Grid spacing={1} container sx={{ justifyContent: "space-between" }}>
         <Grid item xs={12} lg={6}>
@@ -66,7 +80,8 @@ const OrderCard = ({ item, order }) => {
           )}
         </Grid>
       </Grid>
-    </Box>
+    </Box>:""}
+    </div>
   );
 };
 

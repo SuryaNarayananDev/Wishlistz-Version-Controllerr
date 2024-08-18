@@ -28,6 +28,12 @@ const imageSets=[
   {name: "img2",src:null},
   {name: "img3",src:null},
   {name: "img4",src:null},
+];
+const highlightset=[
+  {name:"hlp1",hlp:null},
+  {name:"hlp2",hlp:null},
+  {name:"hlp3",hlp:null},
+  {name:"hlp4",hlp:null},
 ]
 
 
@@ -49,7 +55,8 @@ const CreateProductForm = () => {
     thirdLavelCategory: "",
     description: "",
     weight:0,
-    colortag:""
+    colortag:"",
+    highlight:highlightset
   });
 const dispatch=useDispatch();
 const jwt=localStorage.getItem("jwt")
@@ -62,7 +69,10 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
+  
 
+  console.log("bullets",highlightset);
+  
 
   const handleimgChange = (e, index) => {
     let { name,value } = e.target;
@@ -86,7 +96,16 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
-  
+  const handlehighlights = (e, index) => {
+    let { name,value } = e.target;
+    name==="hl_p"?name="hlp":name=e.target.name;
+    const points = [...productData.highlight];
+    points[index][name] = value;
+    setProductData((prevState) => ({
+      ...prevState,
+      highlight: points,
+    }));
+  };
 
   const handleAddSize = () => {
     const sizes = [...productData.size];
@@ -97,14 +116,7 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
-  // const handleRemoveSize = (index) => {
-  //   const sizes = [...productData.size];
-  //   sizes.splice(index, 1);
-  //   setProductData((prevState) => ({
-  //     ...prevState,
-  //     size: sizes,
-  //   }));
-  // };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,15 +124,7 @@ const jwt=localStorage.getItem("jwt")
     console.log(productData);
   };
 
-  // const handleAddProducts=(data)=>{
-  //   for(let item of data){
-  //     const productsData={
-  //       data:item,
-  //       jwt,
-  //     }
-  //     dispatch(createProduct(productsData))
-  //   }
-  // }
+
 
   return (
     <Fragment className="createProductContainer ">
@@ -356,8 +360,32 @@ const jwt=localStorage.getItem("jwt")
               </Grid> </Grid>
             
           ))}
-          
-
+          <hr/>
+          {productData.highlight.map((point, index) => (
+            <Grid container item spacing={3} >
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="HighLight points"
+                  name="name"
+                  value={point.name}
+                  onChange={(event) => handlehighlights(event, index)}
+                  required
+                  disabled
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Bullet Points"
+                  name="hl_p"
+                  type="text"
+                  onChange={(event) => handlehighlights(event, index)}
+                  required
+                  fullWidth
+                />
+              </Grid> </Grid>
+            
+          ))}
           <Grid item xs={12} >
             <Button
               variant="contained"

@@ -9,7 +9,7 @@
     background-color: #e0bc09;
 }
 #hoverYellowbtn:hover{
-    background-color: #d7900c;
+    background-color: #2b2a2aa2;
 } */
 #hoverGreenbtn{
     background-color: #25b525;
@@ -65,7 +65,7 @@
     background-color: orange;
 }
 .algin-center-btn{
-    margin-left: 22%;
+    margin-left: 24%;
     margin-top: 20px;
 }
 .algin-text-center{
@@ -75,4 +75,16 @@
 .color-tag-container{
     height:35px;
     width: 35px;
+}
+.colortag-page-outline{
+    position: absolute;
+    z-index: 1;
+    height: 800px;
+    width: 85%;
+}
+.close-btn-center-text{
+    font-size: 800px;
+    height: 50px;
+    width: 80px;
+    /* background-color: #020202; */
 }

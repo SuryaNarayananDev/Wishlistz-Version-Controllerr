@@ -57,7 +57,8 @@ async function createProduct(reqData) {
     quantity: reqData.quantity,
     category: thirdLevel._id,
     weight:reqData.weight,
-    colortag:reqData.colortag
+    colortag:reqData.colortag,
+    highlight:reqData.highlight  
   });
 
   const savedProduct = await product.save();

@@ -42,6 +42,10 @@ const productSchema = new mongoose.Schema({
     name:{type:String},
     quantity:{type:Number}
   }], 
+  highlight:[{
+    name:{type:String},
+    hlp:{type:String}
+  }],
   imageUrl: {
     type: String,
   },

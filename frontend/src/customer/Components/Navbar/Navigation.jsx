@@ -345,14 +345,14 @@ export default function Navigation() {
           <div className="border-b border-gray-200">
 
             <div className="flex h-20 lg:h-16 items-center px-2 lg:px-12 ">
-              {searchbar === false && <button
+           <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </button>}
+              </button>
 
               {/* Logo */}
               {/* {searchbar === false && <div className="ml-1 flex lg:ml-0 ">
@@ -367,13 +367,13 @@ export default function Navigation() {
               </div>} */}
               {/* center logo img */}
 
-              {searchbar === false && <Link to="/" className="flex items-center ml-2">
+                <Link to="/" className="flex items-center ml-2">
                 <img
                   src="https://i.imgur.com/CeDLvPB.png"
                   alt="wistlistz"
                   className="h-8 w-15 mr-2 ml-2 mt-3"
                 />
-              </Link>}
+              </Link>
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
@@ -511,25 +511,13 @@ export default function Navigation() {
                   {/* Menu section lg  */}
               <div className="ml-auto flex items-center">
                 
-                {/* Search */}
-                <div className="flex lg:ml-5">
-                  {/* <p className="p-2 text-gray-400 hover:text-gray-500"> */}
-                    <span className="sr-only">Search</span>
-                    {searchbar === false && <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                      onClick={()=>setSearchbar(true)}
-                    />}
-                  </div>
-                  <div className="ml-3"> 
-                    {searchbar===true&&<SearchBar/>}
-                </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-3">
+                <div className="ml-4 mr-2 flow-root lg:ml-3">
                 {auth.user === false  ? "":
+                // add photo request
                     <Button
-                      // onClick={handlecartclick}
+                      onClick={()=>navigate("/account/photorequest")}
                       className="group -m-2 flex items-center p-2"
                     >
                       <AddPhotoAlternateOutlinedIcon

@@ -16,6 +16,8 @@ import Navigation from "../customer/Components/Navbar/Navigation";
 import ValidateEmail from "../customer/Components/Auth/validateEmail";
 import CheckEmail from "../customer/Components/Auth/checkemail";
 import ForgotPassword from "../customer/Components/Auth/forgotPassword";
+import SearchBar from "../customer/Components/Navbar/searchBar";
+
 const Routers = () => {
   return (
     <div>
@@ -36,6 +38,7 @@ const Routers = () => {
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/wish" element={<Wish/>}></Route>
         <Route path="/admin" element={<AdminPannel/>}></Route>
+        <Route path="/search" element={<SearchBar/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/verify-email" element={<ValidateEmail />}></Route>

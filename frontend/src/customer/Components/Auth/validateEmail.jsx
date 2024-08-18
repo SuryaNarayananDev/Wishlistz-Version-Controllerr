@@ -130,7 +130,7 @@ function ValidateEmail() {
                 </form>
                     :
                     <div>
-                    <p className='algin-text-center'><span className='bold-text-60'>please wait 5 sce</span></p>
+                    <p className='algin-text-center'><span className='bold-text-60'>please wait 5 sec</span></p>
                     <div className='make-center mt-5'>
                     <Box sx={{ display: 'flex' }}>
                         <CircularProgress sx={{ fontSize: 80}} />

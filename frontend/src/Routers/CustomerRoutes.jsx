@@ -23,6 +23,7 @@ import ValidateEmail from "../customer/Components/Auth/validateEmail"
 import CheckEmail from "../customer/Components/Auth/checkemail";
 import ForgotPassword from "../customer/Components/Auth/forgotPassword";
 import Photorequest from "../customer/Components/photrequest/photorequest";
+import SearchBar from "../customer/Components/Navbar/searchBar";
 const CustomerRoutes = () => {
     const location = useLocation();
     
@@ -54,6 +55,7 @@ const CustomerRoutes = () => {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/verify-email" element={<ValidateEmail />}></Route>
         <Route path="/account/order" element={<Order />}></Route>
+        <Route path="/search" element={<SearchBar/>}></Route>
         <Route path="/account/order/:orderId" element={<OrderDetails />}></Route>
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
         <Route path="/auth/email-status" element={<CheckEmail />}></Route>
