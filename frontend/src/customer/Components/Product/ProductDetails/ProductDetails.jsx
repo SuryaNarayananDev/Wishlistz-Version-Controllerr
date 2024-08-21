@@ -149,11 +149,39 @@ export default function ProductDetails() {
 
 
   };
-
+  const _ = require('lodash');
   const [maxcolorset, setmaxcolorset] = useState(false)
   console.log("color", maxcolorset);
+  
+  const majorityRating = review.reviews.reduce((acc, current) => {
+    if (acc.count[current.rating] === undefined) {
+      acc.count[current.rating] = 1;
+    } else {
+      acc.count[current.rating]++;
+    }
+    if (acc.max < acc.count[current.rating]) {
+      acc.max = acc.count[current.rating];
+      acc.majority = current.rating;
+    }
+    return acc;
+  }, { count: {}, max: 0, majority: null });
+  
+  console.log(majorityRating.majority); //
 
-
+  const ratingCounts = review.reviews.reduce((acc, current) => {
+    if (acc[current.rating]) {
+      acc[current.rating]++;
+    } else {
+      acc[current.rating] = 1;
+    }
+    return acc;
+  }, {});
+  const count5 = ratingCounts[5];
+  const count4 = ratingCounts[4];
+  const count3 = ratingCounts[3];
+  const count2 = ratingCounts[2];
+  const count1 = ratingCounts[1];
+  console.log("major",majorityRating.majority,"num",count4,count5,count3,count2,count1);
   const handleAddtoWish = () => {
     if (auth.user === null) {
       alert("Please Login to CheckOut")
@@ -341,14 +369,14 @@ export default function ProductDetails() {
                 <div className="flex items-center space-x-3">
                   <Rating
                     name="read-only"
-                    value={4.6}
+                    value={majorityRating.majority}
                     precision={0.5}
                     readOnly
                   />
 
-                  <p className="opacity-60 text-sm">42807 Ratings</p>
+                  {/* <p className="opacity-60 text-sm"> Ratings</p> */}
                   <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    {reviews.totalCount} reviews
+                  {review.reviews.length} reviews
                   </p>
                 </div>
               </div>
@@ -508,9 +536,9 @@ export default function ProductDetails() {
 
           <div className="border p-5">
             <Grid container spacing={7}>
-              <Grid item xs={12}>
+              <Grid item xs={12} lg={6}>
                 <div className="space-y-5">
-                  {review.reviews?.map((item) => (
+                {review.reviews?.slice(-6).map((item) => (
                     <ProductReviewCard item={item} />
                   ))}
                 </div>
@@ -521,12 +549,12 @@ export default function ProductDetails() {
                 <div className="flex items-center space-x-3 pb-10">
                   <Rating
                     name="read-only"
-                    value={4.6}
+                    value={majorityRating.majority}
                     precision={0.5}
                     readOnly
                   />
 
-                  <p className="opacity-60">42807 Ratings</p>
+                  <p className="opacity-60">{review.reviews.length} Ratings</p>
                 </div>
                 <Box>
                   <Grid
@@ -543,12 +571,12 @@ export default function ProductDetails() {
                         className=""
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
                         variant="determinate"
-                        value={40}
+                        value={count5&&count5!=null?count5:"0"}
                         color="success"
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                      <p className="opacity-50 p-2">{count5&&count5!=null?count5:"0"}</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -567,12 +595,12 @@ export default function ProductDetails() {
                         className=""
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
                         variant="determinate"
-                        value={30}
+                        value={count4&&count4!=null?count4:"0"}
                         color="success"
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                      <p className="opacity-50 p-2">{count4&&count4!=null?count4:"0"}</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -591,12 +619,12 @@ export default function ProductDetails() {
                         className="bg-[#885c0a]"
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
                         variant="determinate"
-                        value={25}
+                        value={count3&&count3!=null?count3:"0"}
                         color="orange"
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                      <p className="opacity-50 p-2">{count3&&count3!=null?count3:"0"}</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -622,12 +650,12 @@ export default function ProductDetails() {
                           },
                         }}
                         variant="determinate"
-                        value={21}
+                        value={count2&&count2!=null?count2:"0"}
                         color="success"
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                      <p className="opacity-50 p-2">{count2&&count2!=null?count2:"0"}</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -646,12 +674,12 @@ export default function ProductDetails() {
                         className=""
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
                         variant="determinate"
-                        value={10}
+                        value={count1&&count1!=null?count1:"0"}
                         color="error"
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                      <p className="opacity-50 p-2">{count1&&count1!=null?count1:"0"}</p>
                     </Grid>
                   </Grid>
                 </Box>
