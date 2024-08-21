@@ -182,6 +182,10 @@ export default function ProductDetails() {
   const count2 = ratingCounts[2];
   const count1 = ratingCounts[1];
   console.log("major",majorityRating.majority,"num",count4,count5,count3,count2,count1);
+
+console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
+
+
   const handleAddtoWish = () => {
     if (auth.user === null) {
       alert("Please Login to CheckOut")
@@ -509,9 +513,9 @@ export default function ProductDetails() {
 
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {product.highlights.map((highlight) => (
+                    {customersProduct.product.highlight?.map((highlight) => (
                       <li key={highlight} className="text-gray-400">
-                        <span className="text-gray-600">{highlight}</span>
+                        <span className="text-gray-600">{highlight.hlp}</span>
                       </li>
                     ))}
                   </ul>
