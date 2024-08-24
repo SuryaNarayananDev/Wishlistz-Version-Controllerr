@@ -8,13 +8,14 @@ const createUser = async (userData)=>{
 
         let {firstName,lastName,email,password,role,ph,gender}=userData;
 
-        const isUserExist=await User.findOne({email});
+        const isUserMailExist=await User.findOne({email});
+        const isUserNumExist=await User.findOne({ph});
 
 
-        if(isUserExist){
-            throw new Error("user already exist with email : ",email)
-        }
-
+        if(isUserMailExist&&isUserNumExist){
+            throw new Error("user already exist with email : ",email,ph)
+        }else if (!isUserMailExist&&!isUserNumExist) {
+         
         password=await bcrypt.hash(password,8);
     
         const user=await User.create({firstName,lastName,email,password,role,ph,gender})
@@ -22,7 +23,11 @@ const createUser = async (userData)=>{
         console.log("user ",user)
     
         return user;
-        
+           
+        }else{
+            throw new Error("user already exist with email : ",email,ph)
+        }
+
     } catch (error) {
         console.log("error - ",error.message)
         throw new Error(error.message)

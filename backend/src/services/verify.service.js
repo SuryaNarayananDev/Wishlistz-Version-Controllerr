@@ -6,10 +6,16 @@ const bcrypt = require('bcrypt');
 
 const verifyUserEmailbyOtp = async (email, otp) => {
   const user = await userservice.getUserByEmail(email)
+  console.log(user,"+at the verifytheopotp service user nsamre=e");
+  
   if (!user) {
-    return false
-  } else {
+  console.log("user n+ot in verservice ");
+  return false
+      
+} else {
     if (user.otp === otp) {
+     console.log("reac+he at user",user,"otp service checking");
+     
       const update = await UserModel.updateOne({ _id: user._id }, { $set: { Verifyemail: true } });
       const setotp = await UserModel.updateOne({ _id: user._id }, { $set: { otp: "null_otp" } });
       await update.save()

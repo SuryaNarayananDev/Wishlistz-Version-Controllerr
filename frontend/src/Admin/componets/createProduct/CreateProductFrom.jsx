@@ -56,7 +56,8 @@ const CreateProductForm = () => {
     description: "",
     weight:0,
     colortag:"",
-    highlight:highlightset
+    highlight:highlightset,
+    gender:"",
   });
 const dispatch=useDispatch();
 const jwt=localStorage.getItem("jwt")
@@ -300,6 +301,22 @@ const jwt=localStorage.getItem("jwt")
                 <MenuItem value="jacketm">Jacket men</MenuItem>
                 <MenuItem value="sweaters">Sweaters</MenuItem>
                 <MenuItem value="t-shirtm">T-Shirt men</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel>Gender</InputLabel>
+              <Select
+                name="gender"
+                value={productData.gender}
+                onChange={handleChange}
+                label="Gender"
+              >
+                <MenuItem value="men">Men</MenuItem>
+                <MenuItem value="women">Women</MenuItem>
+                <MenuItem value="kids">kids</MenuItem>
+                <MenuItem value="all">All</MenuItem>
               </Select>
             </FormControl>
           </Grid>

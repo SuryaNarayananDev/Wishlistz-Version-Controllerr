@@ -149,6 +149,8 @@ export default function ProductDetails() {
 
 
   };
+
+  // Rating and REview
   const _ = require('lodash');
   const [maxcolorset, setmaxcolorset] = useState(false)
   console.log("color", maxcolorset);
@@ -165,8 +167,7 @@ export default function ProductDetails() {
     }
     return acc;
   }, { count: {}, max: 0, majority: null });
-  
-  console.log(majorityRating.majority); //
+
 
   const ratingCounts = review.reviews.reduce((acc, current) => {
     if (acc[current.rating]) {
@@ -181,10 +182,8 @@ export default function ProductDetails() {
   const count3 = ratingCounts[3];
   const count2 = ratingCounts[2];
   const count1 = ratingCounts[1];
-  console.log("major",majorityRating.majority,"num",count4,count5,count3,count2,count1);
 
-console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
-
+  // Rating and REview end
 
   const handleAddtoWish = () => {
     if (auth.user === null) {
@@ -208,7 +207,7 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
 
   }, [productId]);
 
-  console.log(customersProduct?.product?.colortag, "tag");
+  console.log(customersProduct?.category, "tag");
   const isStock = customersProduct.product?.quantity;
 
   return (
@@ -235,14 +234,13 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {product.breadcrumbs.map((breadcrumb) => (
-              <li key={breadcrumb.id}>
+            <li>
                 <div className="flex items-center">
                   <a
                     href={"/"}
                     className="mr-2 text-sm font-medium text-gray-900"
                   >
-                    {breadcrumb.name}
+                    {customersProduct?.product?.gender.toUpperCase()}
                   </a>
                   <svg
                     width={16}
@@ -256,14 +254,34 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
                   </svg>
                 </div>
               </li>
-            ))}
+              <li>
+                <div className="flex items-center">
+                  <a
+                    href={"/"}
+                    className="mr-2 text-sm font-medium text-gray-900"
+                  >
+                    {customersProduct?.product?.category?.name.toUpperCase()}
+                  </a>
+                  <svg
+                    width={16}
+                    height={20}
+                    viewBox="0 0 16 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    className="h-5 w-4 text-gray-300"
+                  >
+                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                  </svg>
+                </div>
+              </li>
+             
             <li className="text-sm">
               <a
-                href={product.href}
+                // href={""}
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
-                {product.name}
+                {customersProduct?.product?.color.toUpperCase()}
               </a>
             </li>
           </ol>
@@ -276,7 +294,7 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
             <div id="img-popuptoc" className=" overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
               <img
                 src={activeImage?.src || customersProduct.product?.imageUrl}
-                alt={product.images[0].alt}
+                alt={customersProduct.title}
                 className="h-full w-full object-cover object-center"
               />
             </div>
@@ -511,7 +529,7 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
                   Highlights
                 </h3>
 
-                <div className="mt-4">
+                {/* <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {customersProduct.product.highlight?.map((highlight) => (
                       <li key={highlight} className="text-gray-400">
@@ -519,7 +537,7 @@ console.log(customersProduct.product.highlight[1].hlp,"yap hlp");
                       </li>
                     ))}
                   </ul>
-                </div>
+                </div> */}
               </div>
 
               <div className="mt-10">
