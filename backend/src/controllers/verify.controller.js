@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const verifyUserEmailbyOtp = async (req, res) => {
   try {
     const { otp, email } = req.body;
-    console.log("reach at controller ?");
+    console.log("reach at controller ");
     const verify = await verifyService.verifyUserEmailbyOtp(email, otp)
     return verify
   }
