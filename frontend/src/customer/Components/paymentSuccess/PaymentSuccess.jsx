@@ -10,6 +10,8 @@ import OrderTraker from "../orders/OrderTraker";
 import AddressCard from "../adreess/AdreessCard";
 import { useParams } from "react-router-dom";
 import ReactConfetti from "react-confetti"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PaymentSuccess = () => {
   // razorpay_payment_link_reference_id
@@ -43,13 +45,34 @@ const PaymentSuccess = () => {
     }
   }, [orderId, paymentId]);
 
-  setTimeout(() => {
-    setconfetti(true)
-}, 7000);
+  const notify = (situation,mess) => {
+    if (situation===0) {
+      toast.error(mess.toUpperCase());
+    }
+    else if (situation===1) {
+      toast.success(mess.toUpperCase());  
+    }else{
+      toast(mess.toUpperCase())
+    }
+    
+  }
+
+  useEffect(()=>{
+    if(paymentStatus === "paid"){
+      notify(1,"payment success")
+      setTimeout(() => {
+        setconfetti(true)
+    }, 7000);
+    }else{
+      notify(0,"payment failed")
+    }
+  })
+  
 console.log(order.order?.orderItems);
 
   return (
     <div>
+      <ToastContainer/>
       {confetti===false?
       <ReactConfetti
       width={2000}
