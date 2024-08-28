@@ -20,8 +20,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-// import {BasePopup } from '@mui/base/BasePopup';
-// import { styled } from '@mui/system';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { Popper } from '@mui/base';
 import { styled, css } from '@mui/system';
@@ -113,6 +113,17 @@ export default function ProductDetails() {
   } else {
     console.log("somethig is missing");
   }
+  const notify = (situation,mess) => {
+    if (situation===0) {
+      toast.error(mess.toUpperCase());
+    }
+    else if (situation===1) {
+      toast.success(mess.toUpperCase());  
+    }else{
+      toast(mess.toUpperCase())
+    }
+    
+  }
 
 
   const handleSetActiveImage = (image) => {
@@ -132,18 +143,21 @@ export default function ProductDetails() {
   const handleAddtoCart = () => {
     if (auth.user === null) {
       alert("Please Login to CheckOut")
+      notify(0,"please verify your email")
     } else if (auth.user?.role === "CUSTOMER") {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize };
         dispatch(addItemToCart({ data, jwt }));
         if (auth.user?.Verifyemail === true) {
-          navigate("/cart")
+          notify(1,"added to cart")
         }
         else {
           navigate("/verify-email")
+          notify(0,"verify email")
         }
       } else {
         setindicate(true)
+        notify(0,"please select size")
       }
     }
 
@@ -188,12 +202,15 @@ export default function ProductDetails() {
   const handleAddtoWish = () => {
     if (auth.user === null) {
       alert("Please Login to CheckOut")
+      notify(0,"verify your email")
     } else if (auth.user?.role === "CUSTOMER") {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize.name };
         dispatch(addItemToWish({ data, jwt }));
+        notify(1,"added to wishlist")
       } else {
         setindicate(true)
+        notify(0,"please select size")
       }
     }
   };
@@ -212,6 +229,7 @@ export default function ProductDetails() {
 
   return (
     <div className="bg-white lg:px-20">
+      <ToastContainer />
       {/* color board popup window */}
       {maxcolorset === true ?
         <div className='ml-8 lg:px-0 colortag-page-outline' style={{ backgroundColor: customersProduct?.product?.colortag }}>
@@ -529,15 +547,15 @@ export default function ProductDetails() {
                   Highlights
                 </h3>
 
-                {/* <div className="mt-4">
+                <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {customersProduct.product.highlight?.map((highlight) => (
+                    {customersProduct.product?.highlight?.map((highlight) => (
                       <li key={highlight} className="text-gray-400">
                         <span className="text-gray-600">{highlight.hlp}</span>
                       </li>
                     ))}
                   </ul>
-                </div> */}
+                </div>
               </div>
 
               <div className="mt-10">
@@ -559,11 +577,14 @@ export default function ProductDetails() {
           <div className="border p-5">
             <Grid container spacing={7}>
               <Grid item xs={12} lg={6}>
+                {review.reviews.length>0?
                 <div className="space-y-5">
                 {review.reviews?.slice(-6).map((item) => (
                     <ProductReviewCard item={item} />
                   ))}
                 </div>
+                :
+                <p className="opacity-60">No Review Yet! But {auth.user?.firstName} You Can Become Firest Reviewer</p>}
               </Grid>
 
               <Grid item lg={5} xs={12}>

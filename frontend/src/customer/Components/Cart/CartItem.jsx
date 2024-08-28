@@ -6,6 +6,8 @@ import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import{ useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CartItem = ({ item,showButton}) => {
   const dispatch = useDispatch();
@@ -13,27 +15,52 @@ const CartItem = ({ item,showButton}) => {
 
   const jwt = localStorage.getItem("jwt");
 
+  console.log(item,"##");
+  
+  
+  const notify = (situation,mess) => {
+    if (situation===0) {
+      toast.error(mess.toUpperCase());
+    }
+    else if (situation===1) {
+      toast.success(mess.toUpperCase());  
+    }else{
+      toast(mess.toUpperCase())
+    }
+    
+  }
+
   const handleRemoveItemFromCart = () => {
     const data = { cartItemId: item?._id, jwt };
     dispatch(removeCartItem(data));
+    notify(1,"product removed")
   };
   const handleUpdateCartItem=(num)=>{
     const data={data:{quantity:item.quantity+num}, cartItemId:item?._id, jwt}
     console.log("update data ",data)
-    dispatch(updateCartItem(data))
+    if (num===-1||item?.quantity<=item.product?.quantity) {
+      dispatch(updateCartItem(data))  
+      
+      notify(1,"one more added")
+    }else{
+      notify(0,"stoke is finished")
+    }
+    
   }
 
   const handleNavigate=(proId)=>{
     navigate(`/product/${proId}`)
   }
   return (
+    <div>
+       <ToastContainer/>
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <img
             className="w-full h-full object-cover object-top"
             src={item?.product?.imageUrl}
-            alt=""
+            alt="product img"
           />
         </div>
         <div className="ml-5 space-y-1"  id="isHover"  onClick={()=>handleNavigate(item?.product._id)}>
@@ -53,7 +80,8 @@ const CartItem = ({ item,showButton}) => {
       </div>
      {showButton&& <div className="lg:flex items-center lg:space-x-10 pt-4">
         <div className="flex items-center space-x-2 ">
-          <IconButton onClick={()=>handleUpdateCartItem(-1)} disabled={item?.quantity<=1} color="primary" aria-label="add an alarm">
+          <IconButton onClick={()=>{handleUpdateCartItem(-1) 
+            notify(1,"one removed")}} disabled={item?.quantity<=1} color="primary" aria-label="add an alarm">
             <RemoveCircleOutlineIcon />
           </IconButton>
 
@@ -70,6 +98,7 @@ const CartItem = ({ item,showButton}) => {
           
         </div>
       </div>}
+    </div>
     </div>
   );
 };

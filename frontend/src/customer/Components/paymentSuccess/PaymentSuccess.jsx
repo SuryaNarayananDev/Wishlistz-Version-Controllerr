@@ -86,6 +86,7 @@ console.log(order.order?.orderItems);
             sx={{ mb: 6, width: "fit-content" }}
           >
             <AlertTitle>Payment Success</AlertTitle>
+            <AlertTitle>{paymentId}</AlertTitle>
             Congratulation Your Order Get Placed
           </Alert>
         </div>
