@@ -147,9 +147,10 @@ export default function ProductDetails() {
     } else if (auth.user?.role === "CUSTOMER") {
       if (sizeClick === true) {
         const data = { productId, size: selectedSize };
-        dispatch(addItemToCart({ data, jwt }));
         if (auth.user?.Verifyemail === true) {
+          dispatch(addItemToCart({ data, jwt }));
           notify(1,"added to cart")
+          // ajaxaddToCart(data)
         }
         else {
           navigate("/verify-email")
@@ -163,6 +164,9 @@ export default function ProductDetails() {
 
 
   };
+
+  
+
 
   // Rating and REview
   const _ = require('lodash');
@@ -232,7 +236,7 @@ export default function ProductDetails() {
       <ToastContainer />
       {/* color board popup window */}
       {maxcolorset === true ?
-        <div className='ml-8 lg:px-0 colortag-page-outline' style={{ backgroundColor: customersProduct?.product?.colortag }}>
+        <div className='ml-8 lg:px-0 colortag-page-outline mt-10' id='setborder1px' style={{ backgroundColor: customersProduct?.product?.colortag }}>
           <div className='close-btn-center'>
             <Button onClick={() => setmaxcolorset(false)}
               id="hoverYellowbtn"
@@ -425,7 +429,7 @@ export default function ProductDetails() {
                 <h3 className="text-sm font-medium text-gray-900">Color Guide</h3>
                 <div className="flex items-center">
                   <Button onClick={() => setmaxcolorset(true)}>
-                    <div className='color-tag-container' style={{ background: customersProduct?.product?.colortag }} ></div>
+                    <div className='color-tag-container' id='setborder1px' style={{ background: customersProduct?.product?.colortag }} ></div>
                   </Button>
                   <div>
                     <Button aria-describedby={id} type="button" onClick={handleClick}>

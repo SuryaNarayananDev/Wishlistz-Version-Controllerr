@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../../Redux/Auth/Action";
 import { Fragment, useEffect, useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -18,13 +19,29 @@ export default function RegisterUserForm({ handleNext }) {
   const { auth } = useSelector((store) => store);
   const handleClose = () => setOpenSnackBar(false);
   const [validateNumber, setvalidateNumber] = useState(false)
-  const [validateNumberMess, setvalidateNumberMess] = useState("")
-  const [errormess, seterrormess] = useState({ fname: "", lname: "", email: "" ,pass:"",gender:"",ph:""});
+  const [validateNumbermes, setvalidateNumbermes] = useState("")
   const [passwordValidator, setpasswordValidator] = useState(false)
+  const [passwordValidatormes, setpasswordValidatormes] = useState("")
+  const [nameMess, setnamemess] = useState(false)
+  const [errormess, seterrormess] = useState({ fname: "", lname: "", email: "" ,pass:"",gender:"",ph:""});
+ 
   const [gender, setgender] = useState(false);
+  const[password,setpass]=useState("")
   const jwt = localStorage.getItem("jwt");
   const [selectedgender, setselectedgender] = useState("");
  
+  const notify = (situation,mess) => {
+    if (situation===0) {
+      toast.error(mess.toUpperCase());
+    }
+    else if (situation===1) {
+      toast.success(mess.toUpperCase());  
+    }else{
+      toast(mess.toUpperCase())
+    }
+    
+  }
+  
 
   useEffect(() => {
     if (jwt) {
@@ -33,42 +50,60 @@ export default function RegisterUserForm({ handleNext }) {
 
   }, [jwt])
 
+  useEffect(() => {
+    if (auth.user || auth.error) setOpenSnackBar(true)
+  }, [auth.user]);
+
+
   const handlephone = (e) => {
     var num = e.target.value;
     const regex = /^[0-9]{10}$/;
 
     if (regex.test(e.target.value) && e.target.value.length === 10 && e.target.value[0]>5 ) {
           setvalidateNumber(true);
-          setvalidateNumberMess("Perfect");
+          setvalidateNumbermes("");
     }else if (e.target.value[0]<6 ) {
+      setvalidateNumbermes("use ind number") 
       setvalidateNumber(false);
-      setvalidateNumberMess("Use IND numbers"); 
     }else if (e.target.value.length > 10) {
       setvalidateNumber(false);
-      setvalidateNumberMess("Number is Greater then 10");
+      setvalidateNumbermes("Number is Greater then 10");
     } else if (e.target.value.length < 10) {
       setvalidateNumber(false);
-      setvalidateNumberMess("Number is Less then 10");
+      setvalidateNumbermes("Number is Less then 10");
     }else{
       setvalidateNumber(false);
-      setvalidateNumberMess("Number is Not valid");
+      setvalidateNumbermes("Number is Not valid");
     }
+    // console.log(vali);
+    
 
   }
 
-  useEffect(() => {
-    if (auth.user || auth.error) setOpenSnackBar(true)
-  }, [auth.user]);
+  const numberchecker=()=>{
+    console.log(validateNumbermes,"@",validateNumber);
+    if(validateNumber===false){
+      console.log(validateNumbermes,"@if");
+      
+      notify(0,validateNumbermes)
+    }
+  }
+
 
 
   const handlePassword=(e)=>{
-    console.log(e.target.value);
-    if (e.target.value.length<12) {
+    const passdata=e.target.value
+    if (passdata.length<8) {
       setpasswordValidator(false)
-      console.log("false");
-    }else if (e.target.value.length===12) {
+      setpasswordValidatormes("password is less than 8 characters")      
+    }else if (passdata.length>=8) {
       setpasswordValidator(true)
-      console.log("true");
+      setpasswordValidatormes("")
+    }
+  }
+  const passwordValidatorfun=()=>{
+    if(passwordValidator===false){
+      notify(0,passwordValidatormes)
     }
   }
 
@@ -76,26 +111,54 @@ export default function RegisterUserForm({ handleNext }) {
     setselectedgender(event.target.value)
     setgender(true)
   }
+
+  const handlenameData=(data)=>{
+    var firstName=data.firstName
+    var lastName=data.lastName
+    if (firstName&&lastName===null) {
+        notify(0,"please fill first nad last name")
+    }else{
+      if (firstName==null) {
+        notify(0,"please enter firstname")
+      }else if (lastName==null) {
+        notify(0,"please enter firstname")
+      }else{
+        setnamemess(true)
+      }
+    }
+  }
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateNumber===true&& passwordValidator===true&&gender===true) 
-      {
-      const data = new FormData(event.currentTarget);
-      const userData = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      ph: data.get("ph"),
-      gender:selectedgender
+    const data = new FormData(event.currentTarget);
+    numberchecker()
+    passwordValidatorfun()
+    const userDatafname={
+      firstName:data.get('firstName'),
+      lastName:data.get('lastName'),
+    }
+    console.log("valnum",validateNumber,"passval",passwordValidator,"gen",gender,"namemes",nameMess);
+if (gender===true) {
+  if (validateNumber===true&& passwordValidator===true&&nameMess===true) 
+    {
+    const data = new FormData(event.currentTarget);
+    const userData = {
+    firstName: data.get("firstName"),
+    lastName: data.get("lastName"),
+    email: data.get("email"),
+    password: data.get("password"),
+    ph: data.get("ph"),
+    gender:selectedgender
 
-    }
-    console.log("user Created +++++++++++++++++++++++++", userData);
-    dispatch(register(userData))
-    }
+  }
+  console.log("user Created +++++++++++++++++++++++++", userData);
+  dispatch(register(userData))
+  }
+}
+    
     else{
       seterrormess({gender:"Please select gender"})
+      notify(0,"please select gender")
     }
    
 
@@ -103,6 +166,7 @@ export default function RegisterUserForm({ handleNext }) {
 
   return (
     <div className="">
+      <ToastContainer/>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
@@ -111,13 +175,11 @@ export default function RegisterUserForm({ handleNext }) {
               id="firstName"
               name="firstName"
               label="First Name"
-
+              onChange={handlePassword}
               fullWidth
               autoComplete="given-name"
             />
           </Grid>
-
-          <FormLabel>{errormess?.fname}</FormLabel>
 
           <Grid item xs={12} sm={6}>
             <TextField
@@ -129,8 +191,6 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
-
-          <FormLabel>{errormess?.lname}</FormLabel>
 
           <Grid item xs={12}>
 
@@ -146,8 +206,6 @@ export default function RegisterUserForm({ handleNext }) {
             />
           </Grid>
 
-          <FormLabel>{errormess?.ph}</FormLabel>
-
           <Grid item xs={12}>
             <TextField
               required
@@ -159,8 +217,6 @@ export default function RegisterUserForm({ handleNext }) {
               autoComplete="given-name"
             />
           </Grid>
-
-          <FormLabel>{errormess?.email}</FormLabel>
 
           <Grid item xs={12}>
             <TextField
@@ -175,7 +231,6 @@ export default function RegisterUserForm({ handleNext }) {
               onChange={handlePassword}
             />
           </Grid>
-          <FormLabel>{errormess?.pass}</FormLabel>
           <Grid item xs={12}>
           <FormControl>
       <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
@@ -192,7 +247,6 @@ export default function RegisterUserForm({ handleNext }) {
       </RadioGroup>
        </FormControl>
           </Grid>
-          <FormLabel>{errormess?.gender}</FormLabel>
           <Grid item xs={12}>
             <Button
               className="bg-[#9155FD] w-full"

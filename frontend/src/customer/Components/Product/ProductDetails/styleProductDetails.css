@@ -88,3 +88,6 @@
     width: 80px;
     /* background-color: #020202; */
 }
+#setborder1px{
+    border: 2px solid black;
+}

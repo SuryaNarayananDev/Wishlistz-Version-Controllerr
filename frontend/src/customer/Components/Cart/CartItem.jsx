@@ -8,6 +8,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import{ useNavigate} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import $ from 'jquery';
 
 const CartItem = ({ item,showButton}) => {
   const dispatch = useDispatch();
