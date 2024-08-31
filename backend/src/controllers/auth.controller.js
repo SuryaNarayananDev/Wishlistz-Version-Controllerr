@@ -9,8 +9,8 @@ const register=async(req,res)=>{
 
     try {
         const user=await userService.createUser(req.body);
-        const jwt=jwtProvider.generateToken(user._id);
 
+        const jwt=jwtProvider.generateToken(user._id);
         await cartService.createCart(user);
         await wishService.createWish(user)
 

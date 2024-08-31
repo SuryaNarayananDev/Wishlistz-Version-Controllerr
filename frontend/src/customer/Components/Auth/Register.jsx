@@ -137,6 +137,7 @@ export default function RegisterUserForm({ handleNext }) {
       firstName:data.get('firstName'),
       lastName:data.get('lastName'),
     }
+    handlenameData(userDatafname)
     console.log("valnum",validateNumber,"passval",passwordValidator,"gen",gender,"namemes",nameMess);
       if (gender===true) {
           if (validateNumber===true&& passwordValidator===true&&nameMess===true) 
@@ -162,10 +163,13 @@ export default function RegisterUserForm({ handleNext }) {
    
 
   };
+console.log(auth.error,"@!@!reg---C");
+
 
   return (
     <div className="">
       <ToastContainer/>
+      <p className="indicateDanger algin-text-center mb-4">{auth.error?.response?.data?.message||auth.error?.response?.data?.error}</p>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
@@ -268,12 +272,12 @@ export default function RegisterUserForm({ handleNext }) {
           </Button>
         </div>
       </div>
-
+{/* 
       <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           {auth.error ? auth.error : auth.user ? "Register Success" : ""}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
 
     </div>
   );

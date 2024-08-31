@@ -13,6 +13,7 @@ export default function LoginUserForm({ handleNext }) {
   const [openSnackBar,setOpenSnackBar]=useState(false);
   const { auth } = useSelector((store) => store);
   const handleCloseSnakbar=()=>setOpenSnackBar(false);
+  const [Errormess,setErrormess]=useState("")
   useEffect(()=>{
     if(jwt){
       dispatch(getUser(jwt))
@@ -24,6 +25,18 @@ export default function LoginUserForm({ handleNext }) {
     useEffect(() => {
       if (auth.user || auth.error) setOpenSnackBar(true)
     }, [auth.user]);
+
+  const notichecker=()=>{
+    if(auth.error==="Request failed with status code 500")
+      {
+        console.log("@!@!123User invalid");
+        setErrormess("User Invalid")
+      }else if(auth.error==="Request failed with status code 401")
+      {
+        console.log("@!@!123User invalid");
+          setErrormess("Incorrect Password")
+      }
+  }
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,11 +50,16 @@ export default function LoginUserForm({ handleNext }) {
     console.log("login user",userData);
   
     dispatch(login(userData));
-
+    notichecker()
   };
+
+  console.log(auth.error?.response?.data,"@!@!c");
+
+  
 
   return (
     <React.Fragment className=" shadow-lg ">
+      <p className="indicateDanger algin-text-center mb-4">{auth.error?.response?.data?.message||auth.error?.response?.data?.error}</p>
       <form className="w-full" onSubmit={handleSubmit}>
         <Grid container spacing={3} >
           <Grid item xs={12}>
@@ -87,18 +105,19 @@ export default function LoginUserForm({ handleNext }) {
         </Button>
         </div>
         <div className="py-3 flex items-center">
-        <Button onClick={()=> navigate("/forgot-password")
-        } className="ml-5" size="small">
+        <Button onClick={()=> navigate("/forgot-password")}
+         className="ml-5" size="small">
           Forgot Password ?
         </Button>
         </div>
-
       </div>
-      <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
+      {/* <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
         <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '100%' }}>
           {auth.error?auth.error:auth.user?"Register Success":""}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </React.Fragment>
   );
 }
+
+
