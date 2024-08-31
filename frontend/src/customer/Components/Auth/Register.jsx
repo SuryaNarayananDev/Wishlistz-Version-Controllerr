@@ -138,23 +138,22 @@ export default function RegisterUserForm({ handleNext }) {
       lastName:data.get('lastName'),
     }
     console.log("valnum",validateNumber,"passval",passwordValidator,"gen",gender,"namemes",nameMess);
-if (gender===true) {
-  if (validateNumber===true&& passwordValidator===true&&nameMess===true) 
-    {
-    const data = new FormData(event.currentTarget);
-    const userData = {
-    firstName: data.get("firstName"),
-    lastName: data.get("lastName"),
-    email: data.get("email"),
-    password: data.get("password"),
-    ph: data.get("ph"),
-    gender:selectedgender
-
-  }
-  console.log("user Created +++++++++++++++++++++++++", userData);
-  dispatch(register(userData))
-  }
-}
+      if (gender===true) {
+          if (validateNumber===true&& passwordValidator===true&&nameMess===true) 
+            {
+              const data = new FormData(event.currentTarget);
+              const userData = {
+              firstName: data.get("firstName"),
+              lastName: data.get("lastName"),
+              email: data.get("email"),
+              password: data.get("password"),
+              ph: data.get("ph"),
+              gender:selectedgender
+              }
+        console.log("user Created +++++++++++++++++++++++++", userData);
+        dispatch(register(userData))
+        }
+      }
     
     else{
       seterrormess({gender:"Please select gender"})

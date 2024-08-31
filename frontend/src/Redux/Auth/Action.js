@@ -48,7 +48,9 @@ export const login = userData => async dispatch => {
     console.log("login ",user)
     dispatch(loginSuccess(user));
   } catch (error) {
-    dispatch(loginFailure(error.message));
+    console.log(error?.response,"@123!");
+    
+    dispatch(loginFailure(error));
   }
 };
 
