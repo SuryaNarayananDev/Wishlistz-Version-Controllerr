@@ -151,6 +151,7 @@ export default function ProductDetails() {
           dispatch(addItemToCart({ data, jwt }));
           notify(1,"added to cart")
           // ajaxaddToCart(data)
+          
         }
         else {
           navigate("/verify-email")

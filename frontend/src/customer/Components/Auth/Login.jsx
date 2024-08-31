@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, login } from "../../../Redux/Auth/Action";
 import { useEffect } from "react";
 import { useState } from "react";
+import "./auth.css"
 
 export default function LoginUserForm({ handleNext }) {
   const navigate = useNavigate();
@@ -59,6 +60,10 @@ export default function LoginUserForm({ handleNext }) {
 
   return (
     <React.Fragment className=" shadow-lg ">
+        <div>
+             {/* logo space */}
+        </div>
+      <p className="log-123 algin-text-center text-xl font-medium text-blue-500">Let's Login</p>
       <p className="indicateDanger algin-text-center mb-4">{auth.error?.response?.data?.message||auth.error?.response?.data?.error}</p>
       <form className="w-full" onSubmit={handleSubmit}>
         <Grid container spacing={3} >

@@ -163,12 +163,13 @@ export default function RegisterUserForm({ handleNext }) {
    
 
   };
-console.log(auth.error,"@!@!reg---C");
+
 
 
   return (
     <div className="">
       <ToastContainer/>
+      <p className="log-123 algin-text-center text-xl font-medium text-blue-500">Let's SignUp</p>
       <p className="indicateDanger algin-text-center mb-4">{auth.error?.response?.data?.message||auth.error?.response?.data?.error}</p>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>

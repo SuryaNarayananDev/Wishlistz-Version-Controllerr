@@ -30,4 +30,11 @@
 .bold-text-60{
     font-size: 25px;
     font-weight: 500;
+
+}
+.log-123{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: #9f19ff;
 }
