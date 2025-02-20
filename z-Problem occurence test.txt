@@ -1,6 +1,1 @@
-1.After order place product quantity not manupulating
-2.in admin after order place then 1 week the disappeare but not in customer
-3.first order free
-4.idel page for orders to make first order
-5.
-6.
+
